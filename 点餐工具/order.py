@@ -67,20 +67,20 @@ class App(tk.Tk):
             pyautogui.click(cent_xy)
             status_text = '匹配到newvote'
             # self.lbl4.config(text=self.status_text)
-            los = pyautogui.locateOnScreen('picture/addItem.png', confidence=0.99)
+            los = pyautogui.locateOnScreen('picture/addItem.png', confidence=0.95)
             while los is not None:
                 cent_xy = pyautogui.center(los)
                 pyautogui.click(cent_xy)
                 pyautogui.moveRel(40, 0)
                 self.status_text = '匹配到add item'
                 self.lbl4.config(text=self.status_text)
-                los = pyautogui.locateOnScreen('picture/addItem.png', confidence=0.99)
+                los = pyautogui.locateOnScreen('picture/addItem.png', confidence=0.95)
             else:
                 with open('log/log.txt', 'a', encoding='utf-8') as file_object:
                     file_object.write(time.asctime(time.localtime(time.time())) + ',没有匹配到addItem.png;\n')
             pyautogui.scroll(1000)
             i = 0
-            los = pyautogui.locateOnScreen('picture/theme.png', confidence=0.99)
+            los = pyautogui.locateOnScreen('picture/theme.png', confidence=0.95)
             if los is not None:
                 cent_xy = pyautogui.center(los)
                 pyautogui.click(cent_xy)
@@ -119,7 +119,7 @@ class App(tk.Tk):
                         # pyautogui.typewrite(menuList[i])
                         i += 1
                 pyautogui.scroll(-1000)
-                los = pyautogui.locateOnScreen('picture/checkBox.png', confidence=0.99)
+                los = pyautogui.locateOnScreen('picture/checkBox.png', confidence=0.95)
                 if los is not None:
                     cent_xy = pyautogui.center(los)
                     pyautogui.click(cent_xy)
@@ -128,7 +128,7 @@ class App(tk.Tk):
                     time.sleep(0.5)
                     self.status_text = '匹配到checkBox'
                     self.lbl4.config(text=self.status_text)
-                    los = pyautogui.locateOnScreen('picture/confirm.png', confidence=0.99)
+                    los = pyautogui.locateOnScreen('picture/confirm.png', confidence=0.95)
                     if los is not None:
                         cent_xy = pyautogui.center(los)
                         pyautogui.click(cent_xy)
