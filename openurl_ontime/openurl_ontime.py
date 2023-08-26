@@ -6,6 +6,7 @@ import time
 from urllib.request import urlopen
 import tkinter as tk
 from tkinter import *
+import pyautogui
 
 
 def start():
@@ -37,6 +38,7 @@ def start():
         print(f'网址：{new_url}')
     # 访问网址
     for url in new_url:
+        pyautogui.hotkey('ctrl', 'w')
         webbrowser.open(url[0])
         time.sleep(int(url[1]))
 

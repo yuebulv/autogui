@@ -1,6 +1,8 @@
 import pyautogui
 from tkinter import *
 import tkinter as tk
+import time
+import random
 
 
 class App(tk.Tk):
@@ -16,7 +18,7 @@ class App(tk.Tk):
         self.txt = tk.Text(self, width=5, height=1)
         # self.txt.pack()
         self.txt.grid(row=0, column=3, stick=EW)
-        self.txt.insert(INSERT, '60')
+        self.txt.insert(INSERT, '10')
         self.status_text = '状态'
         self.lbl2 = tk.Label(self,
                              text=self.status_text)
@@ -30,15 +32,16 @@ class App(tk.Tk):
         self.update_auto()
 
     def update_auto(self):
-        los = pyautogui.locateOnScreen('playbutton.png')
+        los = pyautogui.locateOnScreen('playbutton.png', confidence=0.99)
         if los is not None:
             cent_xy = pyautogui.center(los)
             pyautogui.click(cent_xy)
             self.status_text = '匹配到播放按钮，点击播放'
         else:
+            self.status_text = '没有匹配到播放按钮，正在播放'+time.strftime("%H:%M:%S", time.localtime())
             im = pyautogui.screenshot()
-            im.save('截屏.png')
-            self.status_text = '没有匹配到播放按钮，正在播放'
+            im.save(r'.\screen\截屏.png')
+        pyautogui.moveTo(random.randint(0, 100), random.randint(0, 100))
         self.lbl2.config(text=self.status_text)
         self.after(int(self.txt.get('1.0', END))*1000, self.update_auto)
 
