@@ -36,6 +36,8 @@ class App(tk.Tk):
             pyautogui.click(cent_xy)
             self.status_text = '匹配到播放按钮，点击播放'
         else:
+            im = pyautogui.screenshot()
+            im.save('截屏.png')
             self.status_text = '没有匹配到播放按钮，正在播放'
         self.lbl2.config(text=self.status_text)
         self.after(int(self.txt.get('1.0', END))*1000, self.update_auto)
