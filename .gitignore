@@ -108,3 +108,6 @@ venv.bak/
 .try
 .vscode/
 *.rar
+
+#qt
+/QT/screen
