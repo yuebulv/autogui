@@ -100,7 +100,14 @@ class App(tk.Tk):
                 # time.sleep(1)
             else:
                 print("不是tc页面")
-                reset_to_tc()
+                ui_dic = reset_to_ui("同城")
+                if ui_dic["UI"] == "同城":
+                    cent_x, cent_y = ui_dic["坐标"][0], ui_dic["坐标"][1]
+                    print("移动鼠标到tc下方")
+                    pyautogui.moveTo(cent_x, cent_y + 100, duration=0.2)
+                else:
+                    quit()
+                # reset_to_tc()
                 # quit()
 
             # cent_y = 0
@@ -182,6 +189,7 @@ def click_comment_icon_and_back(icon_x, icon_y):
     while last_cent_y != zan_y or zan_y == 0:
         last_cent_y = zan_y
         cent_y = 0
+        female_y = 700
         female = pyautogui.locateOnScreen('female.png', confidence=0.7)
         if female is not None:
             cent_x, cent_y = pyautogui.center(female)
@@ -202,12 +210,14 @@ def click_comment_icon_and_back(icon_x, icon_y):
                 if n_count > 10:
                     reset_to_tc()
                     return "timeout"
-        los = pyautogui.locateOnScreen("shafa.png", confidence=0.6)
+            female_y = cent_y
+        # los = pyautogui.locateOnScreen("shafa.png", confidence=0.6)
+        los = pyautogui.locateOnScreen("shuru.png", confidence=0.6)
         if los is not None:
             print("无人评论")
             break
         # 计算向下滑动距离
-        female_y = cent_y
+        # female_y = cent_y
         los = pyautogui.locateOnScreen('laolao.png', confidence=0.7)
         if los is not None:
             cent_x, cent_y = pyautogui.center(los)
@@ -215,11 +225,15 @@ def click_comment_icon_and_back(icon_x, icon_y):
             # pyautogui.click(cent_x, cent_y+50)
             # time.sleep(1)
         print("滑动")
+
         # print(zan_y)
         cent_y = 0
         los = pyautogui.locateOnScreen('laolao.png', confidence=0.6)
         if los is not None:
             cent_x, cent_y = pyautogui.center(los)
+        else:
+            print("错误，没有在comment界面")
+            reset_to_ui("同城")
         dist_scroll = int(-abs(cent_y - female_y)*1.3)
         # pyautogui.scroll(-50)
         pyautogui.scroll(dist_scroll)
@@ -387,6 +401,38 @@ def reset_to_tc():
         if los_in is not None:
             return
         time.sleep(1)
+
+
+def reset_to_ui(ui="同城"):
+    # 重置到同城
+    ui_list = ["关注", "推荐", "同城"]
+    ui_pic_dic = {"同城": "tc.png", "推荐": "tj.png", "关注": "guanzhu_ui.png"}
+    if ui in ui_list:
+        pass
+    else:
+        res = {"UI": "输入ui不在列表中", "坐标": [0, 0]}
+    print(f"重置到{ui}界面")
+    n = 0
+    while True:
+        pyautogui.moveTo(1, 1)
+        time.sleep(1)
+        los = pyautogui.locateOnScreen('back.png', confidence=0.7)
+        if los is not None:
+            cent_x, cent_y = pyautogui.center(los)
+            pyautogui.click(cent_x, cent_y)
+        los_tc = pyautogui.locateOnScreen(ui_pic_dic[ui], confidence=0.7)
+        if los_tc is not None:
+            cent_x, cent_y = pyautogui.center(los_tc)
+            pyautogui.click(cent_x, cent_y)
+            res = {"UI": ui, "坐标": [tc_x, tc_y]}
+            return res
+        res = ui_identify()
+        if res['UI'] == ui:
+            return res
+        n += 1
+        if n > 20:
+            print(f"无法重置到{ui}界面")
+            return res
 
 
 def main():
