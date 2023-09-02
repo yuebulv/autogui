@@ -6,6 +6,7 @@ import time
 
 class App(tk.Tk):
     def __init__(self):
+        self.reset_number = 0
         super().__init__()
         self.title('自动点播放按钮')
         self.lbl = tk.Label(self,
@@ -76,85 +77,95 @@ class App(tk.Tk):
     #     self.after(int(self.txt.get('1.0', END))*1000, self.update_auto)
 
     def click_female_in_comment_auto(self):
-        los = pyautogui.locateOnScreen('comment.png', confidence=0.9)
-        if los is not None:
-            cent_x, comment_y = pyautogui.center(los)
-            self.status_text = '匹配到comment按钮，点击'
-            # cent_x_last, cent_y_last = cent_x, female_y
-            # Point(x=400, y=860)
-            print("点击comment按钮")
-            pyautogui.moveTo(cent_x, comment_y, duration=0.2)
-            # time.sleep(1)
-            click_comment_icon_and_back(cent_x, comment_y)
-            # pyautogui.PAUSE = 0.5
-            print("该comment完成，进行下一个comment")
-            # time.sleep(1)
-            # pyautogui.moveTo(cent_x_last, cent_y_last)
-
-            # 计算向下滑动距离
-            ui = ui_identify()
-            if ui["UI"] == "同城":
-                cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
-                print("移动鼠标到tc下方")
-                pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
+        try:
+            los = pyautogui.locateOnScreen('comment.png', confidence=0.9)
+            if los is not None:
+                cent_x, comment_y = pyautogui.center(los)
+                self.status_text = '匹配到comment按钮，点击'
+                # cent_x_last, cent_y_last = cent_x, female_y
+                # Point(x=400, y=860)
+                print("点击comment按钮")
+                pyautogui.moveTo(cent_x, comment_y, duration=0.2)
                 # time.sleep(1)
-            else:
-                print("不是tc页面")
-                ui_dic = reset_to_ui("同城")
-                if ui_dic["UI"] == "同城":
-                    cent_x, cent_y = ui_dic["坐标"][0], ui_dic["坐标"][1]
+                click_comment_icon_and_back(cent_x, comment_y)
+                # pyautogui.PAUSE = 0.5
+                print("该comment完成，进行下一个comment")
+                # time.sleep(1)
+                # pyautogui.moveTo(cent_x_last, cent_y_last)
+
+                # 计算向下滑动距离
+                ui = ui_identify()
+                if ui["UI"] == "同城":
+                    cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
                     print("移动鼠标到tc下方")
-                    pyautogui.moveTo(cent_x, cent_y + 100, duration=0.2)
+                    pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
+                    # time.sleep(1)
                 else:
-                    quit()
-                # reset_to_tc()
-                # quit()
+                    print("不是tc页面")
+                    self.reset_number += 1
+                    ui_dic = reset_to_ui("同城")
+                    if ui_dic["UI"] == "同城":
+                        cent_x, cent_y = ui_dic["坐标"][0], ui_dic["坐标"][1]
+                        print("移动鼠标到tc下方")
+                        pyautogui.moveTo(cent_x, cent_y + 100, duration=0.2)
+                    else:
+                        quit()
+                    # reset_to_tc()
+                    # quit()
 
-            # cent_y = 0
-            # los = pyautogui.locateOnScreen('tj.png', confidence=0.5, grayscale=True)
-            # if los is not None:
-            #     cent_x, cent_y = pyautogui.center(los)
-            #     print("移动鼠标到推荐下方")
-            #     pyautogui.moveTo(cent_x, cent_y+100, duration=1)
-            #     time.sleep(1)
-            # else:
-            #     print("不是tc页面，识别错误")
-            #     quit()
+                # cent_y = 0
+                # los = pyautogui.locateOnScreen('tj.png', confidence=0.5, grayscale=True)
+                # if los is not None:
+                #     cent_x, cent_y = pyautogui.center(los)
+                #     print("移动鼠标到推荐下方")
+                #     pyautogui.moveTo(cent_x, cent_y+100, duration=1)
+                #     time.sleep(1)
+                # else:
+                #     print("不是tc页面，识别错误")
+                #     quit()
 
-                # pyautogui.moveRel(0, 200)
-            dist_scroll = int(-abs(cent_y - comment_y))
-            dist_scroll = int(1.2 * dist_scroll)
-            print("tc中滑动", dist_scroll)
-            # print(dist_scroll)
-            time.sleep(1)
-            # pyautogui.scroll(-10)
-            # pyautogui.scroll(-50)
-            pyautogui.scroll(dist_scroll)
-            # pyautogui.scroll(-462)
-        else:
-            print("没有匹配commen,滑动")
-            ui = ui_identify()
-            if ui["UI"] == "同城":
-                cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
-                print("移动鼠标到tc下方")
-                pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
-                # time.sleep(1)
+                    # pyautogui.moveRel(0, 200)
+                dist_scroll = int(-abs(cent_y - comment_y))
+                dist_scroll = int(1.2 * dist_scroll)
+                print("tc中滑动", dist_scroll)
+                # print(dist_scroll)
+                time.sleep(1)
+                # pyautogui.scroll(-10)
+                # pyautogui.scroll(-50)
+                pyautogui.scroll(dist_scroll)
+                # pyautogui.scroll(-462)
             else:
-                print("不是tc页面，退出")
-                reset_to_tc()
-            # ui_now = which_ui_identify()
-            # if ui_now != "同城":
-            #     reset_to_tc()
-            # los = pyautogui.locateOnScreen('tj.png', confidence=0.5)
-            # if los is not None:
-            #     print("向下移动鼠标")
-            #     cent_x, cent_y = pyautogui.center(los)
-            #     pyautogui.moveTo(cent_x, cent_y+100)
-            # time.sleep(1)
-            pyautogui.scroll(-600)
-            self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
-            im = pyautogui.screenshot()
-            im.save(r'.\screen\截屏.png')
+                print("没有匹配commen,滑动")
+                ui = ui_identify()
+                if ui["UI"] == "同城":
+                    cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
+                    print("移动鼠标到tc下方")
+                    pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
+                    # time.sleep(1)
+                else:
+                    print("不是tc页面，退出")
+                    self.reset_number += 1
+                    reset_to_tc()
+                # ui_now = which_ui_identify()
+                # if ui_now != "同城":
+                #     reset_to_tc()
+                # los = pyautogui.locateOnScreen('tj.png', confidence=0.5)
+                # if los is not None:
+                #     print("向下移动鼠标")
+                #     cent_x, cent_y = pyautogui.center(los)
+                #     pyautogui.moveTo(cent_x, cent_y+100)
+                # time.sleep(1)
+                pyautogui.scroll(-600)
+                self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
+                im = pyautogui.screenshot()
+                im.save(r'.\screen\截屏.png')
+            print("reset_number", self.reset_number)
+            if self.reset_number > 0:
+                restart_qt()
+                self.reset_number = 0
+        except:
+            print("")
+            restart_qt()
         # pyautogui.moveTo(random.randint(0, 100), random.randint(0, 100))
         self.lbl2.config(text=self.status_text)
         self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
@@ -335,6 +346,7 @@ def which_ui_identify():
 
 def ui_identify():
     pyautogui.moveTo(1, 1)
+    re_log_on()
     tc_feature_pic_list = ['tc_in.png', 'tc_in2.png', 'tc_in3.png']
     for tc_feature_pic in tc_feature_pic_list:
         los = pyautogui.locateOnScreen(tc_feature_pic, confidence=0.9)
@@ -342,6 +354,14 @@ def ui_identify():
             cent_xy = pyautogui.center(los)
             tc_x, tc_y = cent_xy
             res = {"UI": "同城", "坐标": [tc_x, tc_y]}
+            return res
+    tc_feature_pic_list = ['tj_in.png', 'tj_in2.png', 'tj_in3.png']
+    for tc_feature_pic in tc_feature_pic_list:
+        los = pyautogui.locateOnScreen(tc_feature_pic, confidence=0.9)
+        if los is not None:
+            cent_xy = pyautogui.center(los)
+            tc_x, tc_y = cent_xy
+            res = {"UI": "推荐", "坐标": [tc_x, tc_y]}
             return res
     los = pyautogui.locateOnScreen('laolao.png', confidence=0.9)
     if los is not None:
@@ -360,6 +380,7 @@ def ui_identify():
 
 def reset_to_tc():
     # 重置到同城
+    re_log_on()
     print("重置到同城界面")
     # ui_dic = {"同城": 0, "唠唠": 1, "简历": 2}
     # ui_now = which_ui_identify()
@@ -405,6 +426,7 @@ def reset_to_tc():
 
 def reset_to_ui(ui="同城"):
     # 重置到同城
+    re_log_on()
     ui_list = ["关注", "推荐", "同城"]
     ui_pic_dic = {"同城": "tc.png", "推荐": "tj.png", "关注": "guanzhu_ui.png"}
     if ui in ui_list:
@@ -424,7 +446,7 @@ def reset_to_ui(ui="同城"):
         if los_tc is not None:
             cent_x, cent_y = pyautogui.center(los_tc)
             pyautogui.click(cent_x, cent_y)
-            res = {"UI": ui, "坐标": [tc_x, tc_y]}
+            res = {"UI": ui, "坐标": [cent_x, cent_y]}
             return res
         res = ui_identify()
         if res['UI'] == ui:
@@ -433,6 +455,123 @@ def reset_to_ui(ui="同城"):
         if n > 20:
             print(f"无法重置到{ui}界面")
             return res
+
+
+def restart_qt(quit_qt=True):
+    # 重启qt
+    re_log_on()
+    if quit_qt == True:
+        loc = pyautogui.locateOnScreen('quit.png', confidence=0.7)
+        if loc is None:
+            print("没找到退出按钮，重启失败")
+            quit()
+        else:
+            print("退出qt")
+            pyautogui.click(pyautogui.center(loc))
+        loc = pyautogui.locateOnScreen('qt_renwulan.png', confidence=0.7)
+        if loc is None:
+            print("重启失败1")
+            quit()
+        cent_rwl = pyautogui.center(loc)
+        pyautogui.click(cent_rwl)
+    time.sleep(0.5)
+    loc = pyautogui.locateOnScreen('qt_zdx.png', confidence=0.7)
+    if loc is None:
+        print("没找到zdx,重启失败")
+        quit()
+    cent_xy = pyautogui.center(loc)
+    pyautogui.click(cent_xy)
+    if quit_qt == True:
+        pyautogui.click(cent_rwl)
+    time.sleep(0.5)
+    loc = pyautogui.locateOnScreen('qt_zxh.png', confidence=0.7)
+    if loc is None:
+        print("重启失败3")
+        quit()
+    cent_xy = pyautogui.center(loc)
+    pyautogui.click(cent_xy)
+    n = 5
+    while n > 0:
+        res = ui_identify()
+        if res["UI"] == "推荐":
+            print("重启qt成功")
+            return res
+        time.sleep(1)
+        n -= 1
+
+
+def start_qt():
+    pyautogui.PAUSE = 0.5
+    pyautogui.moveTo(1, 1)
+    loc_wx_renwwulan = pyautogui.locateOnScreen('wx_renwwulan.png', confidence=0.7)
+    if loc_wx_renwwulan is not None:
+        pyautogui.click(pyautogui.center(loc_wx_renwwulan))
+    else:
+        loc = pyautogui.locateOnScreen('kuozhan_rwl.png', confidence=0.7)
+        if loc is not None:
+            pyautogui.click(pyautogui.center(loc))
+            loc = pyautogui.locateOnScreen('wx_in_kuozhan.png', confidence=0.7)
+            if loc is not None:
+                pyautogui.click(pyautogui.center(loc))
+            else:
+                print("任务栏没有启动微信")
+                quit()
+        else:
+            print("没找到任务栏扩展按钮")
+            quit()
+    wx_txl_ico = ["wx_txl.png", "wx_txl_in.png"]
+    for wx_txl in wx_txl_ico:
+        loc = pyautogui.locateOnScreen(wx_txl, confidence=0.7)
+        if loc is not None:
+            pyautogui.click(pyautogui.center(loc))
+            print("找到微信通讯录")
+            break
+    if loc is None:
+        print("没找到微信通讯录")
+        quit()
+    wx_gzh_ico = ["wx_gzh.png", "wx_gzh_in.png"]
+    for wx_gzh in wx_gzh_ico:
+        loc = pyautogui.locateOnScreen(wx_gzh, confidence=0.7)
+        if loc is not None:
+            gzc_x, gzc_y = pyautogui.center(loc)
+            pyautogui.click(pyautogui.center(loc))
+            print("找到微信公众号")
+            break
+    if loc is None:
+        print("没找到微信公众号")
+        quit()
+    n = 0
+    pyautogui.moveTo(gzc_x+250, gzc_y)
+    while True and n < 30:
+        loc = pyautogui.locateOnScreen("wx_qt.png", confidence=0.9)
+        if loc is not None:
+            print("点击qt公众号")
+            pyautogui.click(pyautogui.center(loc))
+            time.sleep(1)
+            loc = pyautogui.locateOnScreen("qt_gzh_fxx.png", confidence=0.7)
+            if loc is not None:
+                print("进入qt公众号")
+                time.sleep(1)
+                pyautogui.click(pyautogui.center(loc))
+                restart_qt(quit_qt=False)
+                return
+            else:
+                print("没找到发消息按钮")
+                quit()
+        else:
+            print("没找到qt按钮")
+            pyautogui.scroll(-300)
+            time.sleep(1)
+        n += 1
+
+
+def re_log_on():
+    # 重新登录wx
+    loc = pyautogui.locateOnScreen('cxdl.png', confidence=0.7)
+    if loc is not None:
+        time.sleep(30)
+        cent_xy = pyautogui.center(loc)
+        pyautogui.click(cent_xy)
 
 
 def main():
@@ -455,27 +594,8 @@ def main():
 
 
 if __name__ == '__main__':
+    start_qt()
     main()
 
-
-    # reset_to_tc()
-
-    # los = pyautogui.locateAllOnScreen('comment.png', confidence=0.6)
-    # for comment_icon in los:
-    #     cent_x, cent_y = pyautogui.center(comment_icon)
-    #     click_comment_icon_and_back(cent_x, cent_y)
-
-    # if los is not None:
-    #     cent_x, cent_y = pyautogui.center(los)
-    #     pyautogui.click(cent_x, cent_y)
-    # else:
-    #     cent_y = 0
-    #     quit()
-    # click_comment_icon_and_back()
-
-    # females = pyautogui.locateAllOnScreen('female.png', confidence=0.8)
-    # # print(len(females))
-    # for female in pyautogui.locateAllOnScreen('female.png', confidence=0.6):
-    #     print(female)
 
 
