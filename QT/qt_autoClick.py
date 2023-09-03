@@ -32,50 +32,6 @@ class App(tk.Tk):
         # self.update_auto()
         self.click_female_in_comment_auto()
 
-    # def update_auto(self):
-    #     los = pyautogui.locateOnScreen('female.png', confidence=0.6)
-    #     if los is not None:
-    #         cent_xy = pyautogui.center(los)
-    #         # pyautogui.click(cent_xy)
-    #         cent_x, female_y = cent_xy
-    #         cent_x_last, cent_y_last = cent_x, female_y
-    #         # Point(x=400, y=860)
-    #         pyautogui.click(cent_x, female_y)
-    #         self.status_text = '匹配到female按钮，点击'
-    #         # pyautogui.PAUSE = 0.5
-    #         time.sleep(1)
-    #         los = pyautogui.locateOnScreen('back.png', confidence=0.6)
-    #         if los is not None:
-    #             cent_xy = pyautogui.center(los)
-    #             cent_x, cent_y = cent_xy
-    #             pyautogui.click(cent_x, cent_y)
-    #         else:  # 匿名用户
-    #             los = pyautogui.locateOnScreen('chacha.png', confidence=0.6)
-    #             if los is not None:
-    #                 cent_xy = pyautogui.center(los)
-    #                 cent_x, cent_y = cent_xy
-    #                 pyautogui.click(cent_x, cent_y)
-    #             else:  # 隐身用户
-    #                 pyautogui.click(cent_x-130, female_y)
-    #         pyautogui.moveTo(cent_x_last, cent_y_last)
-    #         # 计算向下滑动距离
-    #         cent_y = 0
-    #         los = pyautogui.locateOnScreen('tj.png', confidence=0.6)
-    #         if los is not None:
-    #             cent_x, cent_y = pyautogui.center(los)
-    #         dist_scroll = int(cent_y - female_y)
-    #         print(dist_scroll)
-    #         pyautogui.scroll(dist_scroll)
-    #         # pyautogui.scroll(-462)
-    #     else:
-    #         pyautogui.scroll(-700)
-    #         self.status_text = '没有匹配female，正在播放'+time.strftime("%H:%M:%S", time.localtime())
-    #         im = pyautogui.screenshot()
-    #         im.save(r'.\screen\截屏.png')
-    #     # pyautogui.moveTo(random.randint(0, 100), random.randint(0, 100))
-    #     self.lbl2.config(text=self.status_text)
-    #     self.after(int(self.txt.get('1.0', END))*1000, self.update_auto)
-
     def click_female_in_comment_auto(self):
         try:
             los = pyautogui.locateOnScreen('comment.png', confidence=0.9)
@@ -326,10 +282,6 @@ def click_female_icon_and_back(icon_x, icon_y):
                     #     break
 
 
-def test():
-    pass
-
-
 def which_ui_identify():
     pyautogui.moveTo(1, 1)
     los = pyautogui.locateOnScreen('tc_in.png', confidence=0.5)
@@ -503,9 +455,9 @@ def restart_qt(quit_qt=True):
 def start_qt():
     pyautogui.PAUSE = 0.5
     pyautogui.moveTo(1, 1)
-    loc_wx_renwwulan = pyautogui.locateOnScreen('wx_renwwulan.png', confidence=0.7)
-    if loc_wx_renwwulan is not None:
-        pyautogui.click(pyautogui.center(loc_wx_renwwulan))
+    loc_wx_renwulan = pyautogui.locateOnScreen('wx_renwulan.png', confidence=0.7)
+    if loc_wx_renwulan is not None:
+        pyautogui.click(pyautogui.center(loc_wx_renwulan))
     else:
         loc = pyautogui.locateOnScreen('kuozhan_rwl.png', confidence=0.7)
         if loc is not None:
