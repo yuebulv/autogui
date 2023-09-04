@@ -1,0 +1,1 @@
+match_pic_path = r'.\屏幕分辨率（公司）'

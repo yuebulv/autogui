@@ -116,8 +116,8 @@ class App(tk.Tk):
                     reset_to_tc()
                 pyautogui.scroll(-600)
                 self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
-                im = pyautogui.screenshot()
-                im.save(r'.\screen\截屏.png')
+                # im = pyautogui.screenshot()
+                # im.save(r'.\screen\截屏.png')
             print("reset_number", self.reset_number)
             if self.reset_number > 0:
                 restart_qt()
@@ -590,6 +590,7 @@ def qt_quit():
             x, y = pyautogui.center(loc)
             pyautogui.moveTo(x, y, duration=0.2)
             pyautogui.click(pyautogui.center(loc))
+    print(f"退出时间：{datetime.datetime.now()}")
 
 
 def qt_beep(n=3):
@@ -710,7 +711,7 @@ def main(*run_time):
 
 if __name__ == "__main__":
     start_qt()
-    main(0, 10, 0)
+    main(0, 20, 0)
 
     # wode_pic_list = ["wode.png", "wode_1.png", "wode_in.png", "wode_in2.png"]
     # find_and_click_pic(wode_pic_list)
