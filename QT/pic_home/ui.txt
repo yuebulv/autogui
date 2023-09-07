@@ -1,0 +1,24 @@
+Box(left=705, top=30, width=512, height=52)
+Point(x=1221, y=1003)
+Point(x=0, y=1029)
+Point(x=1910, y=1071)
+Size(width=1920, height=1080)
+
+Point(x=756, y=967)  xunmi
+Point(x=855, y=966) like
+Point(x=966, y=965) cunkou
+Point(x=1061, y=960) xiaoxi
+Point(x=1176, y=971) wode
+
+Point(x=896, y=136) 喜欢我的
+Point(x=1022, y=135) 最近来访
+
+
+Point(x=837, y=406)   p1
+Point(x=1046, y=440) p2
+
+Point(x=839, y=270)  height 285
+
+Point(x=776, y=633) 每日签到  Point(x=1136, y=631)领取奖励
+
+ 
