@@ -8,9 +8,10 @@ from start import restart_qt
 import setting
 from qt_ui import click_comment_icon_and_back
 from qt_ui import ui_identify
-from qt_ui import reset_to_ui
+from qt_ui import reset_to_ui, ui_mutually_like_traverse
 from quit_qt import qt_quit
 from music import qt_beep
+from daytask import get_day_qtb
 
 
 class App(tk.Tk):
@@ -121,6 +122,7 @@ class App(tk.Tk):
             restart_qt()
         if datetime.datetime.now() > time_end:
             print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
+            # ui_mutually_like_traverse()
             # get_day_qtb()
             qt_quit()
         self.lbl2.config(text=self.status_text)
