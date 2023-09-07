@@ -711,7 +711,7 @@ def main(*run_time):
 
 if __name__ == "__main__":
     start_qt()
-    main(0, 20, 0)
+    main(0, 60, 0)
 
     # wode_pic_list = ["wode.png", "wode_1.png", "wode_in.png", "wode_in2.png"]
     # find_and_click_pic(wode_pic_list)
