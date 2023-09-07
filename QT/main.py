@@ -108,7 +108,7 @@ class App(tk.Tk):
                     reset_to_tc()
                 pyautogui.scroll(-600)
                 self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
-                # im = pyautogui.screenshot()
+                # im = pyautogui.screenshot(region=setting.qt_ui_region)
                 # im.save(r'.\screen\截屏.png')
             print("reset_number", self.reset_number)
             if self.reset_number > 0:
@@ -116,6 +116,8 @@ class App(tk.Tk):
                 self.reset_number = 0
         except:
             print("未知错误")
+            im = pyautogui.screenshot(region=setting.qt_ui_region)
+            im.save(r'.\screen\未知错误.png')
             restart_qt()
         if datetime.datetime.now() > time_end:
             print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
@@ -126,7 +128,7 @@ class App(tk.Tk):
 
 
 def main(*run_time):
-    # 进入同城界面
+    # 进入tc界面
     pic_path = setting.trans_pic_name_to_path(['tc.png'])
     tc_loc = pyautogui.locateOnScreen(pic_path[0], confidence=0.7, region=setting.qt_ui_region)
     loc = tc_loc

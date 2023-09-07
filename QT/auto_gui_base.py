@@ -38,6 +38,10 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
     #     pyautogui.screenshot(".\screen\shot.png", region=kwargs["region"])
     # except KeyError:
     #     pass
+    try:
+        print(f"region:", kwargs["region"])
+    except:
+        pass
     print(f"没找到{pic_name}")
     return None
 

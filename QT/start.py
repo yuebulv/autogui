@@ -6,44 +6,61 @@ import os
 from music import qt_beep as qt_beep
 from qt_ui import ui_identify as ui_identify
 from log_on import re_log_on as re_log_on
+from network import network_connection
+import quit_qt
+from auto_gui_base import find_and_click_pic
 
 
-def restart_qt(quit_qt=True):
+def restart_qt(close_qtzl=True):
     # 重启qt
     qt_beep()
     re_log_on()
-    if quit_qt == True:
-        pic_path = os.path.join(match_pic_path, "quit.png")
-        loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
-        if loc is None:
-            print("没找到退出按钮，重启失败")
-            quit()
-        else:
-            print("退出qt")
-            pyautogui.click(pyautogui.center(loc))
+    if close_qtzl == True:
+        # close_win_list = ["qtzl_renwulan.png"]
+        quit_qt.close_win(["qtzl_renwulan.png"])
         pic_path = os.path.join(match_pic_path, "qt_renwulan.png")
-        loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.win_renwulan_region)
-        if loc is None:
-            print("重启失败1")
-            quit()
-        cent_rwl = pyautogui.center(loc)
-        cent_x, cent_y = cent_rwl
-        pyautogui.moveTo(cent_x, cent_y, duration=2)
-        pyautogui.click(cent_rwl)
+        res = find_and_click_pic(pic_path, confidence=0.7, region=setting.win_renwulan_region)
+        if res is None:
+            print("没找到qt_renwulan.png")
+            quit_qt.qt_quit()
+            start_qt()
+
+        # pic_path = os.path.join(match_pic_path, "quit.png")
+        # loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+        # if loc is None:
+        #     print("没找到退出按钮，重启失败")
+        #     quit()
+        # else:
+        #     print("退出qt")
+        #     pyautogui.click(pyautogui.center(loc))
+        # pic_path = os.path.join(match_pic_path, "qt_renwulan.png")
+        # loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.win_renwulan_region)
+        # if loc is None:
+        #     print("重启失败1")
+        #     quit()
+        # cent_rwl = pyautogui.center(loc)
+        # cent_x, cent_y = cent_rwl
+        # pyautogui.moveTo(cent_x, cent_y, duration=2)
+        # pyautogui.click(cent_rwl)
     time.sleep(0.5)
     pic_path = os.path.join(match_pic_path, "qt_zdx.png")
     loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
     if loc is None:
         print("没找到zdx,重启失败")
-        quit()
+        quit_qt.qt_quit()
     cent_xy = pyautogui.center(loc)
+    network_connection()
     pyautogui.click(cent_xy)
-    if quit_qt == True:
-        pyautogui.click(cent_rwl)
+    # if close_qtzl == True:
+    #     pyautogui.click(cent_rwl)
     time.sleep(0.5)
-    cunkou_pic_list = ['cunkou.png', 'cunkou_2.png', 'cunkou_in.png']
+    network_connection()
+    setting.get_qt_ui_region()
+    print(f"初始region：{setting.qt_ui_region}")
+    cunkou_pic_list = ['cunkou_in.png', 'cunkou.png', 'cunkou_2.png']
     for conkou_pic in cunkou_pic_list:
         pic_path = os.path.join(match_pic_path, conkou_pic)
+        print(f"click cunkou region：{setting.qt_ui_region}")
         loc = pyautogui.locateOnScreen(pic_path, confidence=0.8, region=setting.qt_ui_region)
         time.sleep(2)
         if loc is not None:
@@ -128,7 +145,7 @@ def start_qt():
                 print("进入qt公众号")
                 time.sleep(1)
                 pyautogui.click(pyautogui.center(loc))
-                restart_qt(quit_qt=False)
+                restart_qt(close_qtzl=False)
                 return
             else:
                 print("没找到发消息按钮")

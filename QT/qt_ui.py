@@ -158,10 +158,12 @@ def click_female_icon_and_back(icon_x, icon_y, features_pic=["xiaozhitiao.png"])
     if los is not None:
         pyautogui.click(icon_x, icon_y)
     print('点击female')
+    network_connection()
     pyautogui.click(icon_x, icon_y)  # 进入主页
     time.sleep(1)
 
     while True:
+        network_connection()
         pic_path = setting.trans_pic_name_to_path(features_pic)
         los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
         if los is not None:
@@ -175,6 +177,7 @@ def click_female_icon_and_back(icon_x, icon_y, features_pic=["xiaozhitiao.png"])
             cent_x, cent_y = pyautogui.center(back_icon)
             print("退出female页面")
             time.sleep(1)
+            network_connection()
             pyautogui.click(cent_x, cent_y)  # 退出
             break
         else:  # 匿名用户

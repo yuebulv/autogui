@@ -1,10 +1,10 @@
 import os
 import pyautogui
-match_pic_path = r'.\pic_home'
-# match_pic_path = r'.\pic_company'
+# match_pic_path = r'.\pic_home'
+match_pic_path = r'.\pic_company'
 qt_ui_width = 512
 qt_ui_height = 970
-win_renwulan_height = 100
+win_renwulan_height = 200
 qt_ui_region = [0, 0, 1920, 1080]
 win_renwulan_region = [0, 900, 1920, 150]
 cunkou_bottom_icon_interval_dic = {"寻觅":[-200, 0], "喜欢":[-100, 0], "村口":[0, 0], "消息":[100, 0], "我的":[200, 0]}  # cunkou 界面底部功能图标间隔
