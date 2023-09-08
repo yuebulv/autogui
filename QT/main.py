@@ -149,4 +149,4 @@ def main(*run_time):
 
 if __name__ == "__main__":
     start_qt()
-    main(0, 20, 0)
+    main(0, 60, 0)
