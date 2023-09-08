@@ -145,6 +145,7 @@ def click_comment_icon_and_back(icon_x, icon_y):
     los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
     if los is not None:
         cent_x, cent_y = pyautogui.center(los)
+        network_connection()
         pyautogui.click(cent_x, cent_y)
 
 
@@ -188,6 +189,7 @@ def click_female_icon_and_back(icon_x, icon_y, features_pic=["xiaozhitiao.png"])
                 cent_x, cent_y = pyautogui.center(los)
                 print("退出female页面")
                 time.sleep(1)
+                network_connection()
                 pyautogui.click(cent_x, cent_y)
                 break
             else:  # 对方开启隐身
@@ -201,12 +203,13 @@ def click_female_icon_and_back(icon_x, icon_y, features_pic=["xiaozhitiao.png"])
                     cent_x, cent_y = pyautogui.center(los)
                     print("退出female页面")
                     time.sleep(1)
+                    network_connection()
                     pyautogui.click(cent_x, cent_y)
                     break
                 else:  # 隐身用户
                     time.sleep(3)
                     print("隐身用户")
-                    break
+                    # break
                     # los = pyautogui.locateOnScreen('qtzl.png', confidence=0.6)
                     # if los is not None:
                     #     print("隐身用户")
@@ -277,16 +280,18 @@ def ui_like_traverse():
     enter_status = enter_ui("喜欢")
     if enter_status is None:
         print("未进入like页面")
-        qt_quit()
+        return None
     cunkou_top_icon_interval_dic = setting.cunkou_top_icon_interval_dic
     try:
         icon_interval: list = cunkou_top_icon_interval_dic["喜欢我的"]
     except KeyError:
         print("KeyError")
-        qt_quit()
+        return None
     cunkou_icon_position = setting.cunkou_icon_position
     x = cunkou_icon_position[0]+icon_interval[0]
     y = cunkou_icon_position[1]+icon_interval[1]
+    network_connection()
+    print("进入like页面")
     pyautogui.click(x, y)
 
     # traverse
@@ -312,6 +317,58 @@ def ui_like_traverse():
         n -= 1
 
 
-if __name__ == '__main__':
-    ui_like_traverse()
+def ui_mutually_like_traverse():
+    enter_status = enter_ui("消息")
+    if enter_status is None:
+        print("未进入消息页面")
+        return None
+    cunkou_top_icon_interval_dic = setting.cunkou_xiaoxi_top_icon_interval_dic
+    try:
+        icon_interval: list = cunkou_top_icon_interval_dic["相互喜欢"]
+    except KeyError:
+        print("KeyError")
+        return None
+    cunkou_icon_position = setting.cunkou_icon_position
+    x = cunkou_icon_position[0] + icon_interval[0]
+    y = cunkou_icon_position[1] + icon_interval[1]
+    print("mutually-like页面")
+    network_connection()
+    pyautogui.click(x, y)
 
+    # traverse
+    female_position = [i for i in setting.like_me_pic_interval_dic.values()]
+    last_female_position = [0, 0]
+    now_female_position = [1, 1]
+    # n = setting.mutually_like_me_pic_scroll_count
+    while last_female_position != now_female_position:
+        pic_path = setting.trans_pic_name_to_path(["female.png"])
+        los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)  # 输入框状态
+        now_female_position = pyautogui.center(los)
+        network_connection()
+        for position in female_position:
+            # pyautogui.moveTo(setting.cunkou_icon_position[0], setting.cunkou_icon_position[1], duration=1)
+            # print(position)
+            x = position[0] + setting.cunkou_icon_position[0]
+            y = position[1] + setting.cunkou_icon_position[1]
+            # print(x, y)
+            pyautogui.moveTo(x, y, duration=0.2)
+            # time.sleep(0.5)
+            click_female_icon_and_back(x, y, features_pic=["lt_likeme.png"])
+        pyautogui.moveTo(x, y, duration=0.2)
+        pyautogui.scroll(setting.mutually_like_me_pic_scroll_number)
+        last_female_position = now_female_position
+        los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)  # 输入框状态
+        now_female_position = pyautogui.center(los)
+    pic_path = setting.trans_pic_name_to_path(["back.png"])
+    network_connection()
+    find_and_click_pic(pic_path, click_model=1, confidence=0.7, region=setting.qt_ui_region)
+
+
+if __name__ == '__main__':
+    ui_mutually_like_traverse()
+
+    # for i in range(40):
+    #     pyautogui.moveTo(843, 286, duration=0.2)
+    #     pyautogui.scroll(-375)
+    #     time.sleep(0.5)
+    #     print(i)

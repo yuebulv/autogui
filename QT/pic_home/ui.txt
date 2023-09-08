@@ -21,4 +21,13 @@ Point(x=839, y=270)  height 285
 
 Point(x=776, y=633) 每日签到  Point(x=1136, y=631)领取奖励
 
+Point(x=830, y=302) 找搭子
+Point(x=1056, y=346)
+
+Point(x=843, y=286)  p1 xhxihuan
+Point(x=1080, y=312) p2 xhxihuan
+
+Point(x=837, y=516)
+Point(x=843, y=891)
+
  

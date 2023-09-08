@@ -39,10 +39,11 @@ def get_day_qtb():
     center_xy = [1, 1]
     n = 10
     while last_loc != center_xy and n > 0:
-        wode_pic_list = trans_pic_name_to_path(["lqjl_canyu.png"])
-        res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.8, region=qt_ui_region)
-        if res is not None:
-            print("领取每日奖励")
+        # wode_pic_list = trans_pic_name_to_path(["lqjl_canyu.png"])
+        # res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.8, region=qt_ui_region)
+        # if res is not None:
+        #     print("领取每日奖励")
+        click_lingqujiangli()
         wode_pic_list = trans_pic_name_to_path(["cytp.png"])
         res = find_and_click_pic(wode_pic_list, coordinate_added_value=day_task_icon_interval_dic["参与投票"], click_model=1, confidence=0.8, region=qt_ui_region)
         if res is not None:
@@ -82,32 +83,16 @@ def get_day_qtb():
     pyautogui.moveTo(x, y, duration=0.2)
     pyautogui.click(x, y )
 
-    # y = res["坐标"][1]
-    # wode_pic_list = ["quwancheng.png"]
-    # res = find_and_click_pic(wode_pic_list, click_model=0)
-    # if res is None:
-    #     print(f"没有找到{wode_pic_list}")
-    #     return None
-    # x = res["坐标"][0]
-    # pyautogui.moveTo(x, y, duration=0.2)
-    # pyautogui.click(x, y)
-    # time.sleep(1)
-    # wode_pic_list = ["xuanxiang_a.png"]
-    # res = find_and_click_pic(wode_pic_list)
-    # if res is None:
-    #     print(f"没有找到{wode_pic_list}")
-    #     return None
-    # wode_pic_list = ["back.png"]
-    # res = find_and_click_pic(wode_pic_list)
-    # if res is None:
-    #     print(f"没有找到{wode_pic_list}")
-    #     return None
-    # time.sleep(1)
-    # wode_pic_list = ["lqjl_canyu.png"]
-    # res = find_and_click_pic(wode_pic_list)
-    # if res is None:
-    #     print(f"没有找到{wode_pic_list}")
-    #     return None
+
+def click_lingqujiangli():
+    while True:
+        wode_pic_list = trans_pic_name_to_path(["lqjl_canyu.png"])
+        res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.8, region=qt_ui_region)
+        if res is not None:
+            print("领取每日奖励")
+        else:
+            print("领取奖励完成")
+            break
 
 
 if __name__ == '__main__':
