@@ -1,11 +1,12 @@
 import os
 import pyautogui
-match_pic_path = r'.\pic_home'
-qt_ui_width = 512
-qt_ui_height = 970
+# match_pic_path = r'.\pic_home'
+# qt_ui_width = 512
+# qt_ui_height = 970
+# win_renwulan_region = [0, 900, 1920, 150]
+# day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
 win_renwulan_height = 200
 qt_ui_region = [0, 0, 1920, 1080]
-win_renwulan_region = [0, 900, 1920, 150]
 cunkou_icon_position = [965, 965]
 cunkou_bottom_icon_interval_dic = {"寻觅":[-200, 0], "喜欢":[-100, 0], "村口":[0, 0], "消息":[100, 0], "我的":[200, 0]}  # cunkou 界面底部功能图标间隔
 cunkou_top_icon_interval_dic = {"喜欢我的":[-70, -830], "最近来访":[70, -830]}
@@ -17,7 +18,7 @@ cunkou_xiaoxi_top_icon_interval_dic = {"找搭子":[-135, -665], "相互喜欢":
 mutually_like_pic_interval_dic = {"p1": [-125, -680], "p2": [125, -680]}  # 与cunkou的相对位置
 mutually_like_me_pic_scroll_number = -375
 
-day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
+
 day_task_scroll_number = -100
 # ui_features_pic_dic = {"寻觅":[-200, 0],
 #                        "喜欢":[-100, 0],
@@ -25,9 +26,11 @@ day_task_scroll_number = -100
 #                        "消息":[100, 0],
 #                        "我的":[200, 0]}
 
-# match_pic_path = r'.\pic_company'
-# qt_ui_width = 512
-# qt_ui_height = 970
+match_pic_path = r'.\pic_company'
+qt_ui_width = 415
+qt_ui_height = 790
+win_renwulan_region = [0, 930, 1920, 150]
+day_task_icon_interval_dic = {"每日签到": [280, -0], "浏览时长": [360, -0], "参与投票": [280, -0]}
 
 
 def get_qt_ui_region():

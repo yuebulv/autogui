@@ -1,8 +1,8 @@
 import pyautogui
 import time
+import os
 import setting
 from setting import match_pic_path as match_pic_path
-import os
 from music import qt_beep as qt_beep
 from qt_ui import ui_identify as ui_identify
 from log_on import re_log_on as re_log_on
@@ -19,7 +19,7 @@ def restart_qt(close_qtzl=True):
         # close_win_list = ["qtzl_renwulan.png"]
         quit_qt.close_win(["qtzl_renwulan.png"])
         pic_path = os.path.join(match_pic_path, "qt_renwulan.png")
-        res = find_and_click_pic(pic_path, confidence=0.7, region=setting.win_renwulan_region)
+        res = find_and_click_pic([pic_path], confidence=0.7, region=setting.win_renwulan_region)
         if res is None:
             print("没找到qt_renwulan.png")
             quit_qt.qt_quit()
@@ -72,6 +72,8 @@ def restart_qt(close_qtzl=True):
             break
         else:
             print("没找到cunkou")
+            im = pyautogui.screenshot(region=setting.qt_ui_region)
+            im.save(r'.\screen\没找到cunkou.png')
     n = 5
     while n > 0:
         res = ui_identify()
@@ -157,40 +159,40 @@ def start_qt():
         n += 1
 
 
-def reset_to_ui(ui="同城"):
-    # 重置到同城
-    qt_beep()
-    re_log_on()
-    ui_list = ["关注", "推荐", "同城"]
-    ui_pic_dic = {"同城": "tc.png", "推荐": "tj.png", "关注": "guanzhu_ui.png"}
-    if ui in ui_list:
-        pass
-    else:
-        res = {"UI": "输入ui不在列表中", "坐标": [0, 0]}
-    print(f"重置到{ui}界面")
-    n = 0
-    while True:
-        pyautogui.moveTo(1, 1)
-        time.sleep(1)
-        pic_path = os.path.join(match_pic_path, "back.png")
-        los = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
-        if los is not None:
-            cent_x, cent_y = pyautogui.center(los)
-            pyautogui.click(cent_x, cent_y)
-        pic_path = os.path.join(match_pic_path, ui_pic_dic[ui])
-        los_tc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
-        if los_tc is not None:
-            cent_x, cent_y = pyautogui.center(los_tc)
-            pyautogui.click(cent_x, cent_y)
-            res = {"UI": ui, "坐标": [cent_x, cent_y]}
-            return res
-        res = ui_identify()
-        if res['UI'] == ui:
-            return res
-        n += 1
-        if n > 20:
-            print(f"无法重置到{ui}界面")
-            return res
+# def reset_to_ui(ui="同城"):
+#     # 重置到同城
+#     qt_beep()
+#     re_log_on()
+#     ui_list = ["关注", "推荐", "同城"]
+#     ui_pic_dic = {"同城": "tc.png", "推荐": "tj.png", "关注": "guanzhu_ui.png"}
+#     if ui in ui_list:
+#         pass
+#     else:
+#         res = {"UI": "输入ui不在列表中", "坐标": [0, 0]}
+#     print(f"重置到{ui}界面")
+#     n = 0
+#     while True:
+#         pyautogui.moveTo(1, 1)
+#         time.sleep(1)
+#         pic_path = os.path.join(match_pic_path, "back.png")
+#         los = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+#         if los is not None:
+#             cent_x, cent_y = pyautogui.center(los)
+#             pyautogui.click(cent_x, cent_y)
+#         pic_path = os.path.join(match_pic_path, ui_pic_dic[ui])
+#         los_tc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+#         if los_tc is not None:
+#             cent_x, cent_y = pyautogui.center(los_tc)
+#             pyautogui.click(cent_x, cent_y)
+#             res = {"UI": ui, "坐标": [cent_x, cent_y]}
+#             return res
+#         res = ui_identify()
+#         if res['UI'] == ui:
+#             return res
+#         n += 1
+#         if n > 20:
+#             print(f"无法重置到{ui}界面")
+#             return res
 
 
 def test():

@@ -1,7 +1,9 @@
 import pyautogui
+import os
+import time
 import setting
 from setting import match_pic_path as match_pic_path
-import os
+
 
 
 def re_log_on():

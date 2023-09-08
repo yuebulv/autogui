@@ -8,6 +8,7 @@ def network_connection(conn_time: int = 30):
     for i in range(conn_time):
         res = os.system("ping baidu.com -n 1")
         if res == 0:
+            print("有网")
             return True
         time.sleep(1)
     # 没有网络

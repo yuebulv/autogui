@@ -12,15 +12,22 @@ def qt_quit(quit_sorft=True):
         loc = pyautogui.locateOnScreen(qui_win, confidence=0.9, region=setting.win_renwulan_region)
         if loc is not None:
             x, y = pyautogui.center(loc)
-            pyautogui.moveTo(x, y, duration=0.2)
+            # pyautogui.moveTo(x, y, duration=0.2)
             pyautogui.rightClick(pyautogui.center(loc))
-            print(f"关闭{qui_win}")
-            loc = pyautogui.locateOnScreen("quit_win.png", confidence=0.7, region=setting.win_renwulan_region)
-            x, y = pyautogui.center(loc)
-            pyautogui.moveTo(x, y, duration=0.2)
-            pyautogui.click(pyautogui.center(loc))
-    print(f"退出时间：{datetime.datetime.now()}")
+            print(f"找到{qui_win}")
+            quit_win = setting.trans_pic_name_to_path(["quit_win.png"])
+            loc = pyautogui.locateOnScreen(quit_win[0], confidence=0.7, region=setting.win_renwulan_region)
+            if loc is not None:
+                print(f"关闭{qui_win}")
+                x, y = pyautogui.center(loc)
+                # pyautogui.moveTo(x, y, duration=0.2)
+                pyautogui.click(pyautogui.center(loc))
+        else:
+            print(f"没找到{qui_win}")
+            im = pyautogui.screenshot(region=setting.win_renwulan_region)
+            im.save(r'.\screen\没找到qui_win.png')
     if quit_sorft:
+        print(f"退出时间：{datetime.datetime.now()}")
         quit()
 
 
@@ -35,7 +42,8 @@ def close_win(close_win_list: list):
             pyautogui.moveTo(x, y, duration=0.2)
             pyautogui.rightClick(pyautogui.center(loc))
             print(f"关闭{qui_win}")
-            loc = pyautogui.locateOnScreen("quit_win.png", confidence=0.7, region=setting.win_renwulan_region)
+            quit_win = setting.trans_pic_name_to_path(["quit_win.png"])
+            loc = pyautogui.locateOnScreen(quit_win[0], confidence=0.7, region=setting.win_renwulan_region)
             x, y = pyautogui.center(loc)
             pyautogui.moveTo(x, y, duration=0.2)
             pyautogui.click(pyautogui.center(loc))

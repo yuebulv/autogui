@@ -8,6 +8,8 @@ from setting import match_pic_path
 from auto_gui_base import find_and_click_pic
 from network import network_connection
 from quit_qt import qt_quit
+from music import qt_beep
+# from start import reset_to_ui
 
 
 def ui_identify():
@@ -97,7 +99,7 @@ def click_comment_icon_and_back(icon_x, icon_y):
                 time.sleep(1)
                 n_count += 1
                 if n_count > 10:
-                    reset_to_tc()
+                    reset_to_ui()
                     return "timeout"
             female_y = cent_y
         # los = pyautogui.locateOnScreen("shafa.png", confidence=0.6)
@@ -115,7 +117,7 @@ def click_comment_icon_and_back(icon_x, icon_y):
             pyautogui.moveTo(cent_x, cent_y+50)
         else:
             print("非commetn页面，重启")
-            reset_to_tc()
+            reset_to_ui()
             # pyautogui.click(cent_x, cent_y+50)
             # time.sleep(1)
         print("滑动")
@@ -239,11 +241,13 @@ def reset_to_ui(ui="同城"):
         los = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
         if los is not None:
             cent_x, cent_y = pyautogui.center(los)
+            network_connection()
             pyautogui.click(cent_x, cent_y)
         pic_path = setting.trans_pic_name_to_path([ui_pic_dic[ui]])
         los_tc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
         if los_tc is not None:
             cent_x, cent_y = pyautogui.center(los_tc)
+            network_connection()
             pyautogui.click(cent_x, cent_y)
             res = {"UI": ui, "坐标": [cent_x, cent_y]}
             return res

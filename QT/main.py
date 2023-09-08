@@ -150,5 +150,6 @@ def main(*run_time):
 
 
 if __name__ == "__main__":
+    qt_quit(quit_sorft=False)
     start_qt()
     main(0, 60, 0)

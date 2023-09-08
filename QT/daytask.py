@@ -55,6 +55,7 @@ def get_day_qtb():
                 res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.7, region=qt_ui_region)
         else:
             print(f"没有找到{wode_pic_list}")
+            # quit()
             # return None
 
         x = cunkou_icon_position[0]
