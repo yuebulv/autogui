@@ -1,5 +1,4 @@
 import time
-import datetime
 import pyautogui
 import setting
 import os
@@ -10,6 +9,7 @@ from network import network_connection
 from quit_qt import qt_quit
 from music import qt_beep
 import ui_of_female
+import ui_of_comment
 # from start import reset_to_ui
 
 
@@ -68,8 +68,9 @@ def click_comment_icon_and_back(icon_x, icon_y):
             break
         print("未进入到comment页面")
         n_count += 1
-        if n_count > 20:
+        if n_count > 10:
             return
+    # ui_of_comment.zan_female_comment()  # zan
     pic_path = setting.trans_pic_name_to_path(["zan.png"])
     los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
     zan_y = 0
@@ -190,7 +191,7 @@ def reset_to_ui(ui="同城"):
         if res['UI'] == ui:
             return res
         n += 1
-        if n > 20:
+        if n > 10:
             print(f"无法重置到{ui}界面")
             return res
 
@@ -272,11 +273,12 @@ def ui_mutually_like_traverse():
     y = cunkou_icon_position[1] + icon_interval[1]
     print("mutually-like页面")
     network_connection()
+    time.sleep(1)
     pyautogui.click(x, y)
     time.sleep(1)
 
     # traverse
-    female_position = [i for i in setting.like_me_pic_interval_dic.values()]
+    female_position = [i for i in setting.mutually_like_pic_interval_dic.values()]
     last_female_position = [0, 0]
     now_female_position = [1, 1]
     # n = setting.mutually_like_me_pic_scroll_count
@@ -310,8 +312,8 @@ def ui_mutually_like_traverse():
 if __name__ == '__main__':
     ui_mutually_like_traverse()
 
-    # for i in range(40):
-    #     pyautogui.moveTo(843, 286, duration=0.2)
-    #     pyautogui.scroll(-375)
+    # for i in range(25):
+    #     pyautogui.moveTo(960, 880, duration=0.2)
+    #     pyautogui.scroll(-365)
     #     time.sleep(0.5)
     #     print(i)

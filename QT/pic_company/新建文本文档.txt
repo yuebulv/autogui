@@ -1,2 +1,25 @@
+Point(x=960, y=881)  cuokou
+Point(x=1019, y=342) xianghuxihuan
+Point(x=841, y=347) zhaodazi
+Point(x=864, y=354)  pic_1
+Point(x=1045, y=355)  pic_2
+Point(x=831, y=454)
+Point(x=829, y=759)
+
+Point(x=959, y=216) 推荐
+Point(x=1022, y=217) TC
+Point(x=1005, y=217) zuijinglaifang
+Point(x=906, y=218) xihuanwode
+
 Point(x=819, y=688)  投票
 Point(x=1099, y=689) 去完成
+
+comment
+zuozhelan_region
+Point(x=757, y=243)
+Point(x=754, y=312)
+Point(x=1162, y=244)
+bottom_icon
+Point(x=992, y=878) share
+Point(x=1049, y=875) comment
+Point(x=1098, y=869) zan

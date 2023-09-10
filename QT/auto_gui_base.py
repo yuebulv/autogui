@@ -18,7 +18,11 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
     if coordinate_added_value is None:
         coordinate_added_value = [0, 0]
     for pic in pic_name:
-        loc = pyautogui.locateOnScreen(pic, **kwargs)
+        try:
+            loc = pyautogui.locateOnScreen(pic, **kwargs)
+        except ValueError as er:  ################################# 删除
+            print(er, kwargs)
+            quit()
         if loc is not None:
             x, y = pyautogui.center(loc)
             x1 = x + coordinate_added_value[0]
@@ -52,6 +56,29 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
         # fileneame = fileneame.replace(r'\', '').replace(".", "").replace('[', "").replace("]", "")
         im.save(f'.\screen\{1}.png')
     return None
+
+
+def if_pics_in_region(pics, find_region):
+    '''
+    # 判断区域内是否存在pics
+    :param pics: 照片path；可以是List，可以是str
+    :param region: 要在屏幕是查找的区域
+    :return: {"all_exist": True or False, "every_coordinate": [[x, y], None]}
+    '''
+    if type(pics) == str:
+        pics = [pics]
+    all_exist = True
+    pics_coordinate = []
+    for pic in pics:
+        exist_or_not = find_and_click_pic(pic, confidence=0.7, click_model=0, region=find_region)
+        pics_coordinate.append(exist_or_not)
+        if exist_or_not is None:
+            pics_coordinate.append(exist_or_not)
+            all_exist = False
+        else:
+            pics_coordinate.append(exist_or_not["坐标"])
+    res = {"all_exist": all_exist, "every_coordinate": pics_coordinate}
+    return res
 
 
 def qt_beep(n=3):

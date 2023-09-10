@@ -1,43 +1,46 @@
 import os
 import pyautogui
-match_pic_path = r'.\pic_home'
-qt_ui_width = 512
-qt_ui_height = 980
-win_renwulan_region = [0, 930, 1920, 150]
-day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
-cunkou_top_icon_interval_dic = {"喜欢我的":[-70, -830], "最近来访":[70, -830], "同城": [75, -830], "推荐": [0, -830]}
+# match_pic_path = r'.\pic_home'
+# qt_ui_width = 512
+# qt_ui_height = 980
+# win_renwulan_region = [0, 930, 1920, 150]
+# day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
+# cunkou_top_icon_interval_dic = {"喜欢我的":[-70, -830], "最近来访":[70, -830], "同城": [75, -830], "推荐": [0, -830]}
+# cunkou_xiaoxi_top_icon_interval_dic = {"找搭子":[- 135, -665], "相互喜欢": [135, -665]}  # 与cunkou的相对位置
+# mutually_like_pic_interval_dic = {"p1": [-125, -680], "p2": [125, -680]}  # 与cunkou的相对位置
+# mutually_like_me_pic_scroll_number = -375
+# cunkou_icon_position = [965, 965]
 
 win_renwulan_height = 200
 qt_ui_region = [0, 0, 1920, 1080]
-cunkou_icon_position = [965, 965]
-cunkou_bottom_icon_interval_dic = {"寻觅":[-200, 0], "喜欢":[-100, 0], "村口":[0, 0], "消息":[100, 0], "我的":[200, 0]}  # cunkou 界面底部功能图标间隔
+cunkou_bottom_icon_interval_dic = {"寻觅": [-200, 0], "喜欢": [-100, 0], "村口": [0, 0], "消息": [100, 0], "我的": [200, 0]}  # cunkou 界面底部功能图标间隔
 like_me_pic_interval_dic = {"p1": [-130, -650], "p2": [130, -650]}  # 与cunkou的相对位置
 like_me_pic_scroll_number = -int(285*1.02)
 like_me_pic_scroll_count = 25
 # person_homepage setting
+day_task_scroll_number = -100
+
+match_pic_path = r'.\pic_company'
+qt_ui_width = 410
+qt_ui_height = 780
+win_renwulan_region = [0, 930, 1920, 150]
+day_task_icon_interval_dic = {"每日签到": [280, -0], "浏览时长": [360, -0], "参与投票": [280, -0]}
+cunkou_top_icon_interval_dic = {"喜欢我的": [-50, -665], "最近来访": [50, -665], "同城": [65, -665], "推荐": [0, -665]}  # 与cunkou的相对位置
+cunkou_xiaoxi_top_icon_interval_dic = {"找搭子": [-125, -540], "相互喜欢": [125, -540]}  # 与cunkou的相对位置
+mutually_like_pic_interval_dic = {"p1": [-90, -550], "p2": [90, -550]}  # 与cunkou的相对位置
+mutually_like_me_pic_scroll_number = -365
+cunkou_icon_position = [960, 880]
+comment_top_zuozelan_region = [755, 245, 405, 70]
+comment_bottom_icon_interval_dic = {"分享": [30, 0], "评论": [90, 0], "赞": [150, 0]}  # cunkou 界面底部功能图标间隔
+
+# feature pic name
 person_homepage_features_pic_setting = {"personal_homepage": ["xiaozhitiao.png", "guanyuwo.png"],
                                         "anonymous": "chacha.png",
                                         "stealth_in_comment": "ys_comment.png",
                                         "blank_homepage": "blank_homepage.png",
                                         "stealth_in_homepage": "back.png"}
-cunkou_xiaoxi_top_icon_interval_dic = {"找搭子":[-135, -665], "相互喜欢":[135, -665]}  # 与cunkou的相对位置
-mutually_like_pic_interval_dic = {"p1": [-125, -680], "p2": [125, -680]}  # 与cunkou的相对位置
-mutually_like_me_pic_scroll_number = -375
-
-
-day_task_scroll_number = -100
-# ui_features_pic_dic = {"寻觅":[-200, 0],
-#                        "喜欢":[-100, 0],
-#                        "村口":[0, 0],
-#                        "消息":[100, 0],
-#                        "我的":[200, 0]}
-
-# match_pic_path = r'.\pic_company'
-# qt_ui_width = 415
-# qt_ui_height = 790
-# win_renwulan_region = [0, 930, 1920, 150]
-# day_task_icon_interval_dic = {"每日签到": [280, -0], "浏览时长": [360, -0], "参与投票": [280, -0]}
-
+cunkou_page_features_pic_setting = {"tc": ["tc.png", "tc_in.png"]}
+restart_interval = [0, 2, 0]  # 秒，分，时
 
 def get_qt_ui_region():
     # 获得qt界面region
@@ -95,4 +98,7 @@ def trans_pic_name_to_path(picnames: list):
 if __name__ == '__main__':
     res = pyautogui.position()
     print(res)
+
+    # im = pyautogui.screenshot(region=[755, 132, 410, 780])
+    # im.save((r'.\screen\2.png'))
 

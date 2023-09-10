@@ -14,6 +14,9 @@ from music import qt_beep
 from daytask import get_day_qtb
 from auto_gui_base import find_and_click_pic
 from network import network_connection
+from ui_of_cunkou import enter_ui
+import ui_of_tc
+import copy
 
 
 class App(tk.Tk):
@@ -110,12 +113,12 @@ class App(tk.Tk):
         #     self.reset_number = 0
 
         if datetime.datetime.now() > time_end:
-            print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
-            ui_mutually_like_traverse()
+            # ui_mutually_like_traverse()
             get_day_qtb()
+            print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
             qt_quit()
         # self.lbl2.config(text=self.status_text)
-        self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
+        # self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
 
 
     def click_female_in_comment_auto_2(self):
@@ -195,15 +198,15 @@ class App(tk.Tk):
             restart_qt()
             reset_to_ui()
         if datetime.datetime.now() > time_end:
-            print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
-            ui_mutually_like_traverse()
+            # ui_mutually_like_traverse()
             get_day_qtb()
+            print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
             qt_quit()
         self.lbl2.config(text=self.status_text)
-        self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
+        # self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
 
 
-def main(*run_time):
+def main_2(*run_time):
     # 进入tc界面
     pic_path = setting.trans_pic_name_to_path(['tc.png'])
     tc_loc = pyautogui.locateOnScreen(pic_path[0], confidence=0.7, region=setting.qt_ui_region)
@@ -223,7 +226,35 @@ def main(*run_time):
     app.mainloop()
 
 
-if __name__ == "__main__":
+def main(seconds, minutes=0, hours=0):
+    time_0 = datetime.datetime.now()
+    t2 = datetime.timedelta(seconds=seconds, minutes=minutes, hours=hours)
+    time_end = time_0 + t2
+
     qt_quit(quit_sorft=False)
-    start_qt()
-    main(0, 5, 0)
+    start_qt()  # enter cunkou
+    enter_tc = enter_ui("tc")  # enter tc
+    if not enter_tc:
+        return
+
+    restart_time_0 = datetime.datetime.now()
+    restart_seconds, restart_minutes, restart_hours = setting.restart_interval
+    restart_time_1 = datetime.timedelta(seconds=restart_seconds, minutes=restart_minutes, hours=restart_hours)
+    while datetime.datetime.now() < time_end:
+        if datetime.datetime.now()-restart_time_0 > restart_time_1: #重置
+            qt_quit(quit_sorft=False)
+            start_qt()  # enter cunkou
+            enter_tc = enter_ui("tc")  # enter tc
+            if not enter_tc:
+                return
+            restart_time_0 = datetime.datetime.now()
+        ui_of_tc.click_female_in_comment_auto()
+
+    # ui_mutually_like_traverse()
+    # get_day_qtb()
+    qt_quit()
+    print(f"开始时间{time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now() - time_0}")
+
+
+if __name__ == "__main__":
+    main(0, 10, 0)

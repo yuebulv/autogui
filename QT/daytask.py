@@ -39,17 +39,17 @@ def get_day_qtb():
     center_xy = [1, 1]
     n = 10
     while last_loc != center_xy and n > 0:
-        # click_lingqujiangli()
+        click_lingqujiangli()
         wode_pic_list = trans_pic_name_to_path(["cytp.png"])
         res = find_and_click_pic(wode_pic_list, coordinate_added_value=day_task_icon_interval_dic["参与投票"], click_model=1, confidence=0.8, region=qt_ui_region)
         if res is not None:
             time.sleep(1)
             wode_pic_list = trans_pic_name_to_path(["xuanxiang_a.png", "xuanxiang_b.png", "xuanxiang_c.png", "xuanxiang_d.png", "xuanxiang_e.png"])
-            res = find_and_click_pic(wode_pic_list, click_model=0, confidence=0.7, region=qt_ui_region)
+            res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.7, region=qt_ui_region)
             if res is not None:
                 print("选a")
                 wode_pic_list = trans_pic_name_to_path(["back.png"])
-                res = find_and_click_pic(wode_pic_list, click_model=0, confidence=0.7, region=qt_ui_region)
+                res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.7, region=qt_ui_region)
                 if res is not None:
                     print("投票完成，退出")
                 break
@@ -78,12 +78,12 @@ def get_day_qtb():
         # print(n)
         # print(last_loc)
         # print(center_xy)
-        n -= 1
+        # n -= 1
 
-    x = cunkou_icon_position[0]
-    y = cunkou_icon_position[1] - 700
-    pyautogui.moveTo(x, y, duration=0.2)
-    pyautogui.click(x, y )
+    # x = cunkou_icon_position[0]
+    # y = cunkou_icon_position[1] - 700
+    # pyautogui.moveTo(x, y, duration=0.2)
+    # pyautogui.click(x, y )
 
 
 def click_lingqujiangli():

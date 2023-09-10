@@ -5,7 +5,6 @@ import setting
 from setting import match_pic_path as match_pic_path
 
 
-
 def re_log_on():
     # 重新登录wx
     pic_path = os.path.join(match_pic_path, "cxdl.png")
