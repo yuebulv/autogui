@@ -39,41 +39,42 @@ def get_day_qtb():
     center_xy = [1, 1]
     n = 10
     while last_loc != center_xy and n > 0:
-        # wode_pic_list = trans_pic_name_to_path(["lqjl_canyu.png"])
-        # res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.8, region=qt_ui_region)
-        # if res is not None:
-        #     print("领取每日奖励")
-        click_lingqujiangli()
+        # click_lingqujiangli()
         wode_pic_list = trans_pic_name_to_path(["cytp.png"])
         res = find_and_click_pic(wode_pic_list, coordinate_added_value=day_task_icon_interval_dic["参与投票"], click_model=1, confidence=0.8, region=qt_ui_region)
         if res is not None:
             time.sleep(1)
-            wode_pic_list = trans_pic_name_to_path(["xuanxiang_a.png"])
-            res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.7, region=qt_ui_region)
+            wode_pic_list = trans_pic_name_to_path(["xuanxiang_a.png", "xuanxiang_b.png", "xuanxiang_c.png", "xuanxiang_d.png", "xuanxiang_e.png"])
+            res = find_and_click_pic(wode_pic_list, click_model=0, confidence=0.7, region=qt_ui_region)
             if res is not None:
+                print("选a")
                 wode_pic_list = trans_pic_name_to_path(["back.png"])
-                res = find_and_click_pic(wode_pic_list, click_model=1, confidence=0.7, region=qt_ui_region)
+                res = find_and_click_pic(wode_pic_list, click_model=0, confidence=0.7, region=qt_ui_region)
+                if res is not None:
+                    print("投票完成，退出")
+                break
         else:
             print(f"没有找到{wode_pic_list}")
+        break
             # quit()
             # return None
 
-        x = cunkou_icon_position[0]
-        y = cunkou_icon_position[1] - 100
-        pyautogui.moveTo(x, y, duration=0.2)
-        pyautogui.scroll(day_task_scroll_number)
-        time.sleep(1)
+        # x = cunkou_icon_position[0]
+        # y = cunkou_icon_position[1] - 100
+        # pyautogui.moveTo(x, y, duration=0.2)
+        # pyautogui.scroll(day_task_scroll_number)
+        # time.sleep(1)
 
         # 判断是否到底
-        print(trans_pic_name_to_path(["quwancheng.png"])[0])
-        loc = pyautogui.locateOnScreen(trans_pic_name_to_path(["quwancheng.png"])[0], confidence=0.7, region=qt_ui_region)
-        if loc is not None:
-            last_loc = center_xy
-            center_xy = pyautogui.center(loc)
-            if center_xy == last_loc:
-                print("day task 滑到底了")
-        else:
-            print("没找到quwancheng")
+        # print(trans_pic_name_to_path(["quwancheng.png"])[0])
+        # loc = pyautogui.locateOnScreen(trans_pic_name_to_path(["quwancheng.png"])[0], confidence=0.7, region=qt_ui_region)
+        # if loc is not None:
+        #     last_loc = center_xy
+        #     center_xy = pyautogui.center(loc)
+        #     if center_xy == last_loc:
+        #         print("day task 滑到底了")
+        # else:
+        #     print("没找到quwancheng")
         # print(n)
         # print(last_loc)
         # print(center_xy)

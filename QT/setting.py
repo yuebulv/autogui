@@ -1,19 +1,25 @@
 import os
 import pyautogui
-# match_pic_path = r'.\pic_home'
-# qt_ui_width = 512
-# qt_ui_height = 970
-# win_renwulan_region = [0, 900, 1920, 150]
-# day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
+match_pic_path = r'.\pic_home'
+qt_ui_width = 512
+qt_ui_height = 980
+win_renwulan_region = [0, 930, 1920, 150]
+day_task_icon_interval_dic = {"每日签到": [360, -0], "浏览时长": [360, -0], "参与投票": [360, -0]}
+cunkou_top_icon_interval_dic = {"喜欢我的":[-70, -830], "最近来访":[70, -830], "同城": [75, -830], "推荐": [0, -830]}
+
 win_renwulan_height = 200
 qt_ui_region = [0, 0, 1920, 1080]
 cunkou_icon_position = [965, 965]
 cunkou_bottom_icon_interval_dic = {"寻觅":[-200, 0], "喜欢":[-100, 0], "村口":[0, 0], "消息":[100, 0], "我的":[200, 0]}  # cunkou 界面底部功能图标间隔
-cunkou_top_icon_interval_dic = {"喜欢我的":[-70, -830], "最近来访":[70, -830]}
 like_me_pic_interval_dic = {"p1": [-130, -650], "p2": [130, -650]}  # 与cunkou的相对位置
 like_me_pic_scroll_number = -int(285*1.02)
 like_me_pic_scroll_count = 25
-
+# person_homepage setting
+person_homepage_features_pic_setting = {"personal_homepage": ["xiaozhitiao.png", "guanyuwo.png"],
+                                        "anonymous": "chacha.png",
+                                        "stealth_in_comment": "ys_comment.png",
+                                        "blank_homepage": "blank_homepage.png",
+                                        "stealth_in_homepage": "back.png"}
 cunkou_xiaoxi_top_icon_interval_dic = {"找搭子":[-135, -665], "相互喜欢":[135, -665]}  # 与cunkou的相对位置
 mutually_like_pic_interval_dic = {"p1": [-125, -680], "p2": [125, -680]}  # 与cunkou的相对位置
 mutually_like_me_pic_scroll_number = -375
@@ -26,11 +32,11 @@ day_task_scroll_number = -100
 #                        "消息":[100, 0],
 #                        "我的":[200, 0]}
 
-match_pic_path = r'.\pic_company'
-qt_ui_width = 415
-qt_ui_height = 790
-win_renwulan_region = [0, 930, 1920, 150]
-day_task_icon_interval_dic = {"每日签到": [280, -0], "浏览时长": [360, -0], "参与投票": [280, -0]}
+# match_pic_path = r'.\pic_company'
+# qt_ui_width = 415
+# qt_ui_height = 790
+# win_renwulan_region = [0, 930, 1920, 150]
+# day_task_icon_interval_dic = {"每日签到": [280, -0], "浏览时长": [360, -0], "参与投票": [280, -0]}
 
 
 def get_qt_ui_region():
@@ -78,6 +84,8 @@ def ui_cunkou_setting():
 
 
 def trans_pic_name_to_path(picnames: list):
+    if type(picnames) == str:
+        picnames = [picnames]
     res = []
     for i in range(len(picnames)):
         res.append(os.path.join(match_pic_path, picnames[i]))
@@ -85,27 +93,6 @@ def trans_pic_name_to_path(picnames: list):
 
 
 if __name__ == '__main__':
-    # region_qt = get_qt_ui_region()
-    # # im1 = pyautogui.screenshot("shot.png", region=(705, 30, 512, 970))
-    # print(region_qt)
-    # pic_path = os.path.join(match_pic_path, "cunkou_in.png")
-    # loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=region_qt)  # 路径中不能存在中文，否则识别不了
-    # if loc is not None:
-    #     x, y = pyautogui.center(loc)
-    #     pyautogui.moveTo(x, y, duration=1)
-    # else:
-    #     print("没找到")
-
-    # region_qt = get_win_renwulan_region()
-    # im1 = pyautogui.screenshot("shot.png", region=region_qt)
-    # icon_like_pic = ['like_2.png', 'like_1.png']
-    # res = trans_pic_name_to_path(icon_like_pic)
-    # print(res)
-
     res = pyautogui.position()
     print(res)
 
-    # like_me_pic_interval_dic = {"p1": [-230, -560], "p2": [230, 560]}
-    # res = like_me_pic_interval_dic.values()
-    # r = [i for i in res]
-    # print(r)

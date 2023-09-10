@@ -9,6 +9,7 @@ from log_on import re_log_on as re_log_on
 from network import network_connection
 import quit_qt
 from auto_gui_base import find_and_click_pic
+import copy
 
 
 def restart_qt(close_qtzl=True):
@@ -18,12 +19,46 @@ def restart_qt(close_qtzl=True):
     if close_qtzl == True:
         # close_win_list = ["qtzl_renwulan.png"]
         quit_qt.close_win(["qtzl_renwulan.png"])
+
+        # pic_path = os.path.join(match_pic_path, "qt_renwulan.png")
+        # for i in range(2):
+        #     res = find_and_click_pic([pic_path], confidence=0.7, region=setting.win_renwulan_region)
+        #     if res is None:
+        #         print("没找到qt_renwulan.png，无法从qt_fuwuhao启动")
+        #         quit_qt.qt_quit()
+        #         # start_qt()
+        #     else:
+        #         time.sleep(0.5)
+        #         pic_path = os.path.join(match_pic_path, "qt_zdx.png")
+        #         loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+        #         if loc is None:
+        #             print("没找到zdx,重启失败")
+        #         else:
+        #             cent_xy = pyautogui.center(loc)
+        #             network_connection()
+        #             pyautogui.click(cent_xy)
+        #             break
+
+    for i in range(3):
+        pic_path = os.path.join(match_pic_path, "qt_zdx.png")
+        region_zdx = copy.deepcopy(setting.qt_ui_region)
+        region_zdx[0] = max(region_zdx[0]-30, 0)
+        print(region_zdx)
+        loc_zdx = find_and_click_pic([pic_path], confidence=0.7, region=region_zdx)
+        if loc_zdx is not None:
+            print("找到zdx.png")
+            break
         pic_path = os.path.join(match_pic_path, "qt_renwulan.png")
-        res = find_and_click_pic([pic_path], confidence=0.7, region=setting.win_renwulan_region)
-        if res is None:
-            print("没找到qt_renwulan.png")
+        loc = find_and_click_pic([pic_path], confidence=0.7, region=setting.win_renwulan_region)
+        if loc is None:
+            print("没找到qt_renwulan.png，无法从qt_fuwuhao启动，退出程序")
+            im = pyautogui.screenshot(region=setting.qt_ui_region)
+            im.save(r'.\screen\没找到qt_renwulan.png')
             quit_qt.qt_quit()
-            start_qt()
+    if loc_zdx is None:
+        im = pyautogui.screenshot(region=setting.qt_ui_region)
+        im.save(r'.\screen\没找到zdx.png')
+        quit_qt.qt_quit()
 
         # pic_path = os.path.join(match_pic_path, "quit.png")
         # loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
@@ -42,26 +77,19 @@ def restart_qt(close_qtzl=True):
         # cent_x, cent_y = cent_rwl
         # pyautogui.moveTo(cent_x, cent_y, duration=2)
         # pyautogui.click(cent_rwl)
-    time.sleep(0.5)
-    pic_path = os.path.join(match_pic_path, "qt_zdx.png")
-    loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
-    if loc is None:
-        print("没找到zdx,重启失败")
-        quit_qt.qt_quit()
-    cent_xy = pyautogui.center(loc)
-    network_connection()
-    pyautogui.click(cent_xy)
+
+
     # if close_qtzl == True:
     #     pyautogui.click(cent_rwl)
-    time.sleep(0.5)
+    time.sleep(2)
     network_connection()
     setting.get_qt_ui_region()
     print(f"初始region：{setting.qt_ui_region}")
-    cunkou_pic_list = ['cunkou_in.png', 'cunkou.png', 'cunkou_2.png']
+    cunkou_pic_list = ['cunkou_in.png', 'cunkou_in2.png', 'cunkou.png', 'cunkou_2.png']
     for conkou_pic in cunkou_pic_list:
         pic_path = os.path.join(match_pic_path, conkou_pic)
         print(f"click cunkou region：{setting.qt_ui_region}")
-        loc = pyautogui.locateOnScreen(pic_path, confidence=0.8, region=setting.qt_ui_region)
+        loc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
         time.sleep(2)
         if loc is not None:
             print("进入cunkou")
@@ -72,8 +100,10 @@ def restart_qt(close_qtzl=True):
             break
         else:
             print("没找到cunkou")
-            im = pyautogui.screenshot(region=setting.qt_ui_region)
-            im.save(r'.\screen\没找到cunkou.png')
+    if loc is None:
+        im = pyautogui.screenshot(region=setting.qt_ui_region)
+        im.save(r'.\screen\没找到cunkou.png')
+        quit_qt.qt_quit()
     n = 5
     while n > 0:
         res = ui_identify()

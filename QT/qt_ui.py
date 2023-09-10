@@ -9,6 +9,7 @@ from auto_gui_base import find_and_click_pic
 from network import network_connection
 from quit_qt import qt_quit
 from music import qt_beep
+import ui_of_female
 # from start import reset_to_ui
 
 
@@ -152,74 +153,7 @@ def click_comment_icon_and_back(icon_x, icon_y):
 
 
 def click_female_icon_and_back(icon_x, icon_y, features_pic=["xiaozhitiao.png"]):
-    # print('click-female')
-    pyautogui.PAUSE = 0.5
-    # print(2, "    ", icon_x, icon_y)
-    # pyautogui.moveTo(0, 0)
-    pic_path = setting.trans_pic_name_to_path(["shuru.png"])
-    los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)  # 输入框状态
-    if los is not None:
-        pyautogui.click(icon_x, icon_y)
-    print('点击female')
-    network_connection()
-    pyautogui.click(icon_x, icon_y)  # 进入主页
-    time.sleep(1)
-
-    while True:
-        network_connection()
-        pic_path = setting.trans_pic_name_to_path(features_pic)
-        los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
-        if los is not None:
-            print("进入到female页面")
-            back_icon = None
-            while back_icon is None:
-                print("等待back图标")
-                time.sleep(1)
-                pic_path = setting.trans_pic_name_to_path(['back.png'])
-                back_icon = pyautogui.locateOnScreen(pic_path[0], confidence=0.7, region=setting.qt_ui_region)
-            cent_x, cent_y = pyautogui.center(back_icon)
-            print("退出female页面")
-            time.sleep(1)
-            network_connection()
-            pyautogui.click(cent_x, cent_y)  # 退出
-            break
-        else:  # 匿名用户
-            pic_path = setting.trans_pic_name_to_path(['chacha.png'])
-            los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
-            if los is not None:
-                print("匿名用户")
-                cent_x, cent_y = pyautogui.center(los)
-                print("退出female页面")
-                time.sleep(1)
-                network_connection()
-                pyautogui.click(cent_x, cent_y)
-                break
-            else:  # 对方开启隐身
-                time.sleep(1)
-                pic_path = setting.trans_pic_name_to_path(["ys_comment.png"])
-                los_ys = pyautogui.locateOnScreen(pic_path[0], confidence=0.9, region=setting.qt_ui_region)
-                pic_path = setting.trans_pic_name_to_path(["back.png"])
-                los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)
-                if los is not None and los_ys is not None:
-                    print("对方开启隐身")
-                    cent_x, cent_y = pyautogui.center(los)
-                    print("退出female页面")
-                    time.sleep(1)
-                    network_connection()
-                    pyautogui.click(cent_x, cent_y)
-                    break
-                else:  # 隐身用户
-                    time.sleep(3)
-                    print("隐身用户")
-                    # break
-                    # los = pyautogui.locateOnScreen('qtzl.png', confidence=0.6)
-                    # if los is not None:
-                    #     print("隐身用户")
-                    #     cent_x, cent_y = pyautogui.center(los)
-                    #     print("退出female页面")
-                    #     time.sleep(1)
-                    #     pyautogui.click(cent_x, cent_y+100)
-                    #     break
+    ui_of_female.click_female_icon_and_back(icon_x,icon_y)
 
 
 def reset_to_ui(ui="同城"):
@@ -238,13 +172,14 @@ def reset_to_ui(ui="同城"):
         pyautogui.moveTo(1, 1)
         time.sleep(1)
         pic_path = setting.trans_pic_name_to_path(["back.png"])
-        los = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
-        if los is not None:
-            cent_x, cent_y = pyautogui.center(los)
-            network_connection()
-            pyautogui.click(cent_x, cent_y)
+        find_and_click_pic(pic_path, confidence=0.7, region=setting.qt_ui_region)
+        # los = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+        # if los is not None:
+        #     cent_x, cent_y = pyautogui.center(los)
+        #     network_connection()
+        #     pyautogui.click(cent_x, cent_y)
         pic_path = setting.trans_pic_name_to_path([ui_pic_dic[ui]])
-        los_tc = pyautogui.locateOnScreen(pic_path, confidence=0.7, region=setting.qt_ui_region)
+        los_tc = pyautogui.locateOnScreen(pic_path[0], confidence=0.7, region=setting.qt_ui_region)
         if los_tc is not None:
             cent_x, cent_y = pyautogui.center(los_tc)
             network_connection()
@@ -338,6 +273,7 @@ def ui_mutually_like_traverse():
     print("mutually-like页面")
     network_connection()
     pyautogui.click(x, y)
+    time.sleep(1)
 
     # traverse
     female_position = [i for i in setting.like_me_pic_interval_dic.values()]
@@ -347,7 +283,8 @@ def ui_mutually_like_traverse():
     while last_female_position != now_female_position:
         pic_path = setting.trans_pic_name_to_path(["female.png"])
         los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)  # 输入框状态
-        now_female_position = pyautogui.center(los)
+        if los is not None:
+            now_female_position = pyautogui.center(los)
         network_connection()
         for position in female_position:
             # pyautogui.moveTo(setting.cunkou_icon_position[0], setting.cunkou_icon_position[1], duration=1)
@@ -362,10 +299,12 @@ def ui_mutually_like_traverse():
         pyautogui.scroll(setting.mutually_like_me_pic_scroll_number)
         last_female_position = now_female_position
         los = pyautogui.locateOnScreen(pic_path[0], confidence=0.6, region=setting.qt_ui_region)  # 输入框状态
-        now_female_position = pyautogui.center(los)
+        if los is not None:
+            now_female_position = pyautogui.center(los)
     pic_path = setting.trans_pic_name_to_path(["back.png"])
     network_connection()
     find_and_click_pic(pic_path, click_model=1, confidence=0.7, region=setting.qt_ui_region)
+    print("mutually_like_traverse done")
 
 
 if __name__ == '__main__':

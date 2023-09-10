@@ -30,4 +30,7 @@ Point(x=1080, y=312) p2 xhxihuan
 Point(x=837, y=516)
 Point(x=843, y=891)
 
+Point(x=961, y=137) 推荐
+Point(x=1042, y=135) 同城
+
  

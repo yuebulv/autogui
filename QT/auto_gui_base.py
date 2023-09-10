@@ -10,6 +10,8 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
     click_model: 0时不点击，1鼠标左键单击，2鼠标右键单击
     '''
     # 返回查找图标坐标
+    if type(pic_name) == str:
+        pic_name = [pic_name]
     if type(pic_name) != list:
         print("错误：typeerror, 要求输入列表，find_and_click_pic")
         quit()
@@ -22,6 +24,7 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
             x1 = x + coordinate_added_value[0]
             y1 = y + coordinate_added_value[1]
             # pyautogui.moveTo(x1, y1, duration=0.2)
+            print(f"找到{pic_name}")
             if click_model == 1:
                 network_connection()
                 print(f"左击:{pic_name}")
@@ -38,11 +41,16 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
     #     pyautogui.screenshot(".\screen\shot.png", region=kwargs["region"])
     # except KeyError:
     #     pass
-    try:
-        print(f"region:", kwargs["region"])
-    except:
-        pass
     print(f"没找到{pic_name}")
+    try:
+        region = kwargs["region"]
+    except:
+        print("无region")
+    else:
+        im = pyautogui.screenshot(region=region)
+        fileneame = str(pic_name)
+        # fileneame = fileneame.replace(r'\', '').replace(".", "").replace('[', "").replace("]", "")
+        im.save(f'.\screen\{1}.png')
     return None
 
 
@@ -60,8 +68,10 @@ def test(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    a = {"a":1, "b":2, "c":3}
-    b = []
-    print(type(b))
-    if type(b) == list:
-        print(1)
+    a = [1, 2]
+    # a = '1'
+    find_and_click_pic(a)
+    if type(a) == list:
+        print("list")
+    elif type(a) == str:
+        print(2)

@@ -12,6 +12,8 @@ from qt_ui import reset_to_ui, ui_mutually_like_traverse
 from quit_qt import qt_quit
 from music import qt_beep
 from daytask import get_day_qtb
+from auto_gui_base import find_and_click_pic
+from network import network_connection
 
 
 class App(tk.Tk):
@@ -47,6 +49,76 @@ class App(tk.Tk):
         self.click_female_in_comment_auto()
 
     def click_female_in_comment_auto(self):
+        print("***********************begin***********************")
+        t2 = datetime.timedelta(seconds=self.seconds, minutes=self.minutes, hours=self.hours)
+        time_end = self.time_0 + t2
+
+        pic_path = setting.trans_pic_name_to_path(['comment.png'])
+        los = pyautogui.locateOnScreen(pic_path[0], confidence=0.9, region=setting.qt_ui_region)
+        if los is not None:
+            cent_x, comment_y = pyautogui.center(los)
+            print("点击comment按钮")
+            pyautogui.moveTo(cent_x, comment_y, duration=0.2)
+            click_comment_icon_and_back(cent_x, comment_y)
+            print("该comment完成，进行下一个comment")
+
+            # 计算向下滑动距离
+            ui = ui_identify()
+            if ui["UI"] == "同城":
+                cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
+                print("移动鼠标到tc下方")
+                pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
+                # time.sleep(1)
+            else:
+                print("不是tc页面")
+                # self.reset_number += 1
+                ui_dic = reset_to_ui("同城")
+                if ui_dic["UI"] == "同城":
+                    cent_x, cent_y = ui_dic["坐标"][0], ui_dic["坐标"][1]
+                    print("移动鼠标到tc下方")
+                    pyautogui.moveTo(cent_x, cent_y + 100, duration=0.2)
+                else:
+                    restart_qt()
+                # reset_to_tc()
+                # quit()
+
+            dist_scroll = int(-abs(cent_y - comment_y))
+            dist_scroll = int(1.2 * dist_scroll)
+            print("tc中滑动", dist_scroll)
+            network_connection()
+            pyautogui.scroll(dist_scroll)
+        else:
+            print("没有匹配commen,滑动")
+            ui = ui_identify()
+            if ui["UI"] == "同城":
+                cent_x, cent_y = ui["坐标"][0], ui["坐标"][1]
+                print("移动鼠标到tc下方")
+                pyautogui.moveTo(cent_x, cent_y+100, duration=0.2)
+                # time.sleep(1)
+            else:
+                print("不是tc页面，退出")
+                # self.reset_number += 1
+                reset_to_ui()
+            pyautogui.scroll(-600)
+            # self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
+            # im = pyautogui.screenshot(region=setting.qt_ui_region)
+            # im.save(r'.\screen\截屏.png')
+        # print("reset_number", self.reset_number)
+        # if self.reset_number > 0:
+        #     restart_qt()
+        #     reset_to_ui()
+        #     self.reset_number = 0
+
+        if datetime.datetime.now() > time_end:
+            print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
+            ui_mutually_like_traverse()
+            get_day_qtb()
+            qt_quit()
+        # self.lbl2.config(text=self.status_text)
+        self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
+
+
+    def click_female_in_comment_auto_2(self):
         t2 = datetime.timedelta(seconds=self.seconds, minutes=self.minutes, hours=self.hours)
         time_end = self.time_0 + t2
         try:
@@ -106,7 +178,7 @@ class App(tk.Tk):
                 else:
                     print("不是tc页面，退出")
                     self.reset_number += 1
-                    reset_to_tc()
+                    reset_to_ui()
                 pyautogui.scroll(-600)
                 self.status_text = '没有匹配commen，正在播放' + time.strftime("%H:%M:%S", time.localtime())
                 # im = pyautogui.screenshot(region=setting.qt_ui_region)
@@ -114,16 +186,18 @@ class App(tk.Tk):
             print("reset_number", self.reset_number)
             if self.reset_number > 0:
                 restart_qt()
+                reset_to_ui()
                 self.reset_number = 0
         except:
             print("未知错误")
             im = pyautogui.screenshot(region=setting.qt_ui_region)
             im.save(r'.\screen\未知错误.png')
             restart_qt()
+            reset_to_ui()
         if datetime.datetime.now() > time_end:
             print(f"开始时间{self.time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now()-self.time_0}")
-            # ui_mutually_like_traverse()
-            # get_day_qtb()
+            ui_mutually_like_traverse()
+            get_day_qtb()
             qt_quit()
         self.lbl2.config(text=self.status_text)
         self.after(int(self.txt.get('1.0', END)) * 1000, self.click_female_in_comment_auto())
@@ -152,4 +226,4 @@ def main(*run_time):
 if __name__ == "__main__":
     qt_quit(quit_sorft=False)
     start_qt()
-    main(0, 60, 0)
+    main(0, 5, 0)
