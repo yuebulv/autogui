@@ -23,3 +23,8 @@ bottom_icon
 Point(x=992, y=878) share
 Point(x=1049, y=875) comment
 Point(x=1098, y=869) zan
+
+Point(x=1114, y=762) 加号
+Point(x=966, y=859) 匿名发布
+Point(x=1117, y=859) 发布
+Point(x=784, y=215)  相互喜欢

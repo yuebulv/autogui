@@ -258,7 +258,7 @@ def ui_like_traverse():
 
 
 def ui_mutually_like_traverse():
-    enter_status = enter_ui("消息")
+    enter_status = enter_ui("喜欢")
     if enter_status is None:
         print("未进入消息页面")
         return None

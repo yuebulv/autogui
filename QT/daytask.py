@@ -8,7 +8,7 @@ from setting import trans_pic_name_to_path
 from setting import day_task_icon_interval_dic
 from setting import day_task_scroll_number
 from setting import qt_ui_region
-from setting import cunkou_icon_position
+from setting import cunkou_icon_position, cunkou_xiaoxi_top_icon_interval_dic
 
 
 def get_day_qtb():
@@ -39,7 +39,7 @@ def get_day_qtb():
     center_xy = [1, 1]
     n = 10
     while last_loc != center_xy and n > 0:
-        click_lingqujiangli()
+        # click_lingqujiangli()
         wode_pic_list = trans_pic_name_to_path(["cytp.png"])
         res = find_and_click_pic(wode_pic_list, coordinate_added_value=day_task_icon_interval_dic["参与投票"], click_model=1, confidence=0.8, region=qt_ui_region)
         if res is not None:
@@ -56,34 +56,10 @@ def get_day_qtb():
         else:
             print(f"没有找到{wode_pic_list}")
         break
-            # quit()
-            # return None
-
-        # x = cunkou_icon_position[0]
-        # y = cunkou_icon_position[1] - 100
-        # pyautogui.moveTo(x, y, duration=0.2)
-        # pyautogui.scroll(day_task_scroll_number)
-        # time.sleep(1)
-
-        # 判断是否到底
-        # print(trans_pic_name_to_path(["quwancheng.png"])[0])
-        # loc = pyautogui.locateOnScreen(trans_pic_name_to_path(["quwancheng.png"])[0], confidence=0.7, region=qt_ui_region)
-        # if loc is not None:
-        #     last_loc = center_xy
-        #     center_xy = pyautogui.center(loc)
-        #     if center_xy == last_loc:
-        #         print("day task 滑到底了")
-        # else:
-        #     print("没找到quwancheng")
-        # print(n)
-        # print(last_loc)
-        # print(center_xy)
-        # n -= 1
-
-    # x = cunkou_icon_position[0]
-    # y = cunkou_icon_position[1] - 700
-    # pyautogui.moveTo(x, y, duration=0.2)
-    # pyautogui.click(x, y )
+    click_lingqujiangli()
+    x = cunkou_icon_position[0] + cunkou_xiaoxi_top_icon_interval_dic['相互喜欢'][0]
+    y = cunkou_icon_position[1] + cunkou_xiaoxi_top_icon_interval_dic['相互喜欢'][1]
+    pyautogui.click(x, y)
 
 
 def click_lingqujiangli():

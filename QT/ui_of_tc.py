@@ -14,6 +14,7 @@ from music import qt_beep
 from daytask import get_day_qtb
 from auto_gui_base import find_and_click_pic
 from network import network_connection
+from ui_of_cunkou import enter_ui
 
 
 def click_female_in_comment_auto():
@@ -44,6 +45,9 @@ def click_female_in_comment_auto():
                 pyautogui.moveTo(cent_x, cent_y + 100, duration=0.2)
             else:
                 restart_qt()
+                enter_tc = enter_ui("tc")
+                if not enter_tc:
+                    qt_quit()
             # reset_to_tc()
             # quit()
 

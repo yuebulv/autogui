@@ -32,7 +32,7 @@ class App(tk.Tk):
         self.update_auto()
 
     def update_auto(self):
-        los = pyautogui.locateOnScreen('playbutton.png', confidence=0.99)
+        los = pyautogui.locateOnScreen('playbutton.png', confidence=0.9)
         if los is not None:
             cent_xy = pyautogui.center(los)
             pyautogui.click(cent_xy)
