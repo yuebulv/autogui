@@ -24,8 +24,8 @@ def qt_quit(quit_sorft=True):
                 pyautogui.click(pyautogui.center(loc))
         else:
             print(f"没找到{qui_win}")
-            im = pyautogui.screenshot(region=setting.win_renwulan_region)
-            im.save(r'.\screen\没找到qui_win.png')
+            # im = pyautogui.screenshot(region=setting.win_renwulan_region)
+            # im.save(r'.\screen\没找到qui_win.png')
     if quit_sorft:
         print(f"退出时间：{datetime.datetime.now()}")
         quit()

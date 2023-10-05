@@ -46,12 +46,12 @@ def click_female_icon_and_back(icon_x, icon_y):
         time.sleep(3)
         pic_path = setting.trans_pic_name_to_path(['back.png'])
         exit_or_not = find_and_click_pic(pic_path, confidence=0.7, region=setting.qt_ui_region)
-        im = pyautogui.screenshot(region=setting.qt_ui_region)
-        im.save(r'.\screen\隐身用户.png')
+        # im = pyautogui.screenshot(region=setting.qt_ui_region)
+        # im.save(r'.\screen\隐身用户.png')
         return
     print(homepageType)
-    im = pyautogui.screenshot(region=setting.qt_ui_region)
-    im.save(f'.\screen\{homepageType}.png')
+    # im = pyautogui.screenshot(region=setting.qt_ui_region)
+    # im.save(f'.\screen\{homepageType}.png')
     # quit()
 
 
@@ -67,4 +67,6 @@ def personal_homepage_type():
                 # quit()
             print(f"页面{homepage_type}")
             return {"ui_type": homepage_type}
+    print("ui_of_female personal_homepage_type发生错误")
+    quit()
     return {"ui_type": "未知页面"}

@@ -54,7 +54,7 @@ def ui_identify():
 def click_comment_icon_and_back(icon_x, icon_y):
     # pyautogui.PAUSE = 0.5
     network_connection()
-    pyautogui.moveTo(icon_x, icon_y)
+    # pyautogui.moveTo(icon_x, icon_y)
     pyautogui.click(icon_x, icon_y)
     time.sleep(0.5)
     n_count = 0
@@ -64,7 +64,8 @@ def click_comment_icon_and_back(icon_x, icon_y):
         if los is not None:
             print("检测到comment，进入comment页面")
             cent_x, cent_y = pyautogui.center(los)
-            pyautogui.moveTo(cent_x, cent_y+50)
+            # pyautogui.moveTo(cent_x, cent_y+50)
+            pyautogui.moveTo(setting.cunkou_icon_position[0]+100, setting.cunkou_icon_position[1]+100)
             break
         print("未进入到comment页面")
         n_count += 1

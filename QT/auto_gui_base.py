@@ -54,7 +54,7 @@ def find_and_click_pic(pic_name: list, coordinate_added_value=None, click_model=
         im = pyautogui.screenshot(region=region)
         fileneame = str(pic_name)
         # fileneame = fileneame.replace(r'\', '').replace(".", "").replace('[', "").replace("]", "")
-        im.save(f'.\screen\{1}.png')
+        # im.save(f'.\screen\{1}.png')
     return None
 
 

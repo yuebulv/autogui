@@ -40,7 +40,8 @@ def deliver_laolao(textLaolao, anonymous=False):
     pyautogui.click(x, y, duration=0.2)
 
     pic_path = trans_pic_name_to_path("nimingfabu.png")[0]
-    while True:
+    n = 0
+    while True and n < 10:
         network_connection()
         los = pyautogui.locateOnScreen(pic_path, confidence=0.9, region=qt_ui_region)
         if los is not None:
@@ -53,7 +54,7 @@ def deliver_laolao(textLaolao, anonymous=False):
                 y = cunkou_icon_position[1] + deliver_laolao_icon_interval_dic["匿名发布"][1]
                 pyautogui.click(x, y, duration=0.2)
             break
-
+        n += 1
     x = cunkou_icon_position[0] + deliver_laolao_icon_interval_dic["发布"][0]
     y = cunkou_icon_position[1] + deliver_laolao_icon_interval_dic["发布"][1]
     pyautogui.click(x, y, duration=0.2)
