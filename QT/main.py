@@ -251,14 +251,14 @@ def main(seconds, minutes=0, hours=0):
             restart_time_0 = datetime.datetime.now()
         ui_of_tc.click_female_in_comment_auto()
 
-    ui_mutually_like_traverse()
     ui_xunmi_like()
     get_day_qtb()
-    # fabu_laolao()
+    fabu_laolao()
+    # ui_mutually_like_traverse()
     qt_quit(quit_sorft=False)
     print(f"开始时间{time_0},结束时间{datetime.datetime.now()},用时{datetime.datetime.now() - time_0}")
 
 
 if __name__ == "__main__":
-    main(0, 1, 0)
+    main(0, 30, 0)
     # qt_quit()
